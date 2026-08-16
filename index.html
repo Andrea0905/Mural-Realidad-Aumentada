@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const scene = document.querySelector("a-scene");
 
   let currentTarget = null;
+  let isLocked = false;
 
   /*
    * ==========================================
@@ -152,10 +153,21 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       /*
+       * Si ya hay un target congelado,
+       * no permitimos detectar otro
+       */
+
+      if (isLocked) {
+        return;
+      }
+
+      /*
        * Guardamos cuál es el target actual
+       * y bloqueamos la detección de otros
        */
 
       currentTarget = target;
+      isLocked = true;
 
       /*
        * Mostramos el botón X
@@ -196,11 +208,9 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       /*
-       * IMPORTANTE:
-       *
-       * No hacemos nada.
-       *
-       * La imagen permanece congelada.
+       * Si el target que se perdió es el actual
+       * y está congelado, dejamos que permanezca
+       * congelado hasta que se presione X
        */
 
     });
@@ -220,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /*
      * Si existe un target congelado,
-     * lo ocultamos permanentemente.
+     * lo desbloqueamos y ocultamos
      */
 
     if (currentTarget) {
@@ -246,6 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
 
     currentTarget = null;
+    isLocked = false;
 
   });
 
