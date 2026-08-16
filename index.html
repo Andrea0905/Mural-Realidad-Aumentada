@@ -19,7 +19,57 @@
 
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 </head>
+<script>
+AFRAME.registerComponent('smooth-tracking', {
+  schema: {
+    factor: {
+      type: 'number',
+      default: 0.10
+    }
+  },
 
+  init: function () {
+    this.position = new THREE.Vector3();
+    this.quaternion = new THREE.Quaternion();
+    this.scale = new THREE.Vector3();
+
+    this.initialized = false;
+  },
+
+  tick: function () {
+
+    const object = this.el.object3D;
+
+    if (!this.initialized) {
+      this.position.copy(object.position);
+      this.quaternion.copy(object.quaternion);
+      this.scale.copy(object.scale);
+
+      this.initialized = true;
+      return;
+    }
+
+    this.position.lerp(
+      object.position,
+      this.data.factor
+    );
+
+    this.quaternion.slerp(
+      object.quaternion,
+      this.data.factor
+    );
+
+    this.scale.lerp(
+      object.scale,
+      this.data.factor
+    );
+
+    object.position.copy(this.position);
+    object.quaternion.copy(this.quaternion);
+    object.scale.copy(this.scale);
+  }
+});
+</script>
 <body>
 
   <section
@@ -52,7 +102,7 @@
       uiError: yes;
       uiLoading: yes;
       uiScanning: no;
-      missTolerance: 12;
+      missTolerance: 30;
     "
 
     color-space="sRGB"
@@ -170,6 +220,7 @@
     <a-entity
       mindar-image-target="targetIndex: 1"
       data-person-id="denisse"
+      smooth-tracking
     >
 
       <a-image
@@ -178,6 +229,7 @@
         width="0.97"
         height="2.09"
         transparent="true"
+        
       >
       </a-image>
 
@@ -192,6 +244,7 @@
     <a-entity
       mindar-image-target="targetIndex: 2"
       data-person-id="esther"
+      smooth-tracking
     >
 
       <a-image
@@ -214,6 +267,7 @@
     <a-entity
       mindar-image-target="targetIndex: 3"
       data-person-id="rubi"
+      smooth-tracking
     >
 
       <a-image
@@ -236,6 +290,7 @@
     <a-entity
       mindar-image-target="targetIndex: 4"
       data-person-id="maria"
+      smooth-tracking
     >
 
       <a-image
@@ -258,6 +313,7 @@
     <a-entity
       mindar-image-target="targetIndex: 5"
       data-person-id="patricia"
+      smooth-tracking
     >
 
       <a-image
@@ -280,6 +336,7 @@
     <a-entity
       mindar-image-target="targetIndex: 6"
       data-person-id="monica"
+      smooth-tracking
     >
 
       <a-image
