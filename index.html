@@ -52,10 +52,13 @@ AFRAME.registerComponent('freeze-tracking', {
     const object = this.el.object3D;
 
     /*
-     * Si está congelado NO modificamos
-     * posición, rotación ni escala.
+     * Si está congelado RESTAURAMOS
+     * posición, rotación y escala guardadas.
      */
     if (this.frozen) {
+      object.position.copy(this.position);
+      object.quaternion.copy(this.quaternion);
+      object.scale.copy(this.scale);
       return;
     }
 
