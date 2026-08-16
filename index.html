@@ -20,7 +20,8 @@
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 </head>
 <script>
-AFRAME.registerComponent('smooth-tracking', {
+AFRAME.registerComponent('freeze-tracking', {
+
   schema: {
     factor: {
       type: 'number',
@@ -29,25 +30,53 @@ AFRAME.registerComponent('smooth-tracking', {
   },
 
   init: function () {
+
     this.position = new THREE.Vector3();
     this.quaternion = new THREE.Quaternion();
     this.scale = new THREE.Vector3();
 
     this.initialized = false;
+    this.frozen = false;
+
+    this.el.addEventListener('freeze', () => {
+      this.freeze();
+    });
+
+    this.el.addEventListener('unfreeze', () => {
+      this.unfreeze();
+    });
   },
 
   tick: function () {
 
     const object = this.el.object3D;
 
+    /*
+     * Si está congelado NO modificamos
+     * posición, rotación ni escala.
+     */
+    if (this.frozen) {
+      return;
+    }
+
+    /*
+     * Primera detección
+     */
     if (!this.initialized) {
+
       this.position.copy(object.position);
       this.quaternion.copy(object.quaternion);
       this.scale.copy(object.scale);
 
       this.initialized = true;
+
       return;
     }
+
+    /*
+     * Suavizamos el movimiento mientras
+     * todavía está siguiendo el marcador.
+     */
 
     this.position.lerp(
       object.position,
@@ -67,7 +96,32 @@ AFRAME.registerComponent('smooth-tracking', {
     object.position.copy(this.position);
     object.quaternion.copy(this.quaternion);
     object.scale.copy(this.scale);
+  },
+
+  freeze: function () {
+
+    /*
+     * Guardamos la posición exacta
+     * donde fue detectado.
+     */
+
+    this.position.copy(this.el.object3D.position);
+    this.quaternion.copy(this.el.object3D.quaternion);
+    this.scale.copy(this.el.object3D.scale);
+
+    this.frozen = true;
+
+    console.log("Imagen congelada");
+  },
+
+  unfreeze: function () {
+
+    this.frozen = false;
+    this.initialized = false;
+
+    console.log("Seguimiento reactivado");
   }
+
 });
 </script>
 <body>
@@ -92,6 +146,14 @@ AFRAME.registerComponent('smooth-tracking', {
       id="story-audio"
       preload="none"
     ></audio>
+
+    <button
+      id="close-ar"
+      type="button"
+      aria-label="Cerrar realidad aumentada"
+    >
+      ✕
+    </button>
   </section>
 
 
@@ -220,7 +282,7 @@ AFRAME.registerComponent('smooth-tracking', {
     <a-entity
       mindar-image-target="targetIndex: 1"
       data-person-id="denisse"
-      smooth-tracking
+      freeze-tracking
     >
 
       <a-image
@@ -244,7 +306,7 @@ AFRAME.registerComponent('smooth-tracking', {
     <a-entity
       mindar-image-target="targetIndex: 2"
       data-person-id="esther"
-      smooth-tracking
+      freeze-tracking
     >
 
       <a-image
@@ -267,7 +329,7 @@ AFRAME.registerComponent('smooth-tracking', {
     <a-entity
       mindar-image-target="targetIndex: 3"
       data-person-id="rubi"
-      smooth-tracking
+      freeze-tracking
     >
 
       <a-image
@@ -290,7 +352,7 @@ AFRAME.registerComponent('smooth-tracking', {
     <a-entity
       mindar-image-target="targetIndex: 4"
       data-person-id="maria"
-      smooth-tracking
+      freeze-tracking
     >
 
       <a-image
@@ -313,7 +375,7 @@ AFRAME.registerComponent('smooth-tracking', {
     <a-entity
       mindar-image-target="targetIndex: 5"
       data-person-id="patricia"
-      smooth-tracking
+      freeze-tracking
     >
 
       <a-image
@@ -336,7 +398,7 @@ AFRAME.registerComponent('smooth-tracking', {
     <a-entity
       mindar-image-target="targetIndex: 6"
       data-person-id="monica"
-      smooth-tracking
+      freeze-tracking
     >
 
       <a-image
