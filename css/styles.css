@@ -80,7 +80,7 @@ body {
   font-size: 28px;
   font-weight: bold;
 
-  display: none;
+  display: flex;
 
   align-items: center;
   justify-content: center;
@@ -90,6 +90,15 @@ body {
   cursor: pointer;
 
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+#close-ar.visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 #close-ar:active {

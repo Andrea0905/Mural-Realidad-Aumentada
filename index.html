@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
        * Mostramos el botón X
        */
 
-      closeButton.style.display = "flex";
+      closeButton.classList.add("visible");
 
       /*
        * Esperamos un pequeño momento para
@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * Ocultamos el botón
      */
 
-    closeButton.style.display = "none";
+    closeButton.classList.remove("visible");
 
     /*
      * Permitimos volver a escanear
