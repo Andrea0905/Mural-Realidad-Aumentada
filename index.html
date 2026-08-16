@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /*
      * Si existe un target congelado,
-     * lo descongelamos.
+     * lo ocultamos permanentemente.
      */
 
     if (currentTarget) {
@@ -228,22 +228,10 @@ document.addEventListener("DOMContentLoaded", () => {
       currentTarget.emit("unfreeze");
 
       /*
-       * Desactivamos temporalmente
-       * la entidad.
+       * Ocultamos la imagen permanentemente
        */
 
       currentTarget.object3D.visible = false;
-
-      /*
-       * La volvemos a activar para
-       * permitir una nueva detección.
-       */
-
-      setTimeout(() => {
-
-        currentTarget.object3D.visible = true;
-
-      }, 100);
 
     }
 
