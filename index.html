@@ -124,6 +124,146 @@ AFRAME.registerComponent('freeze-tracking', {
 
 });
 </script>
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const closeButton = document.getElementById("close-ar");
+
+  const scene = document.querySelector("a-scene");
+
+  let currentTarget = null;
+
+  /*
+   * ==========================================
+   * CUANDO SE DETECTA UN TARGET
+   * ==========================================
+   */
+
+  document.querySelectorAll(
+    "[mindar-image-target]"
+  ).forEach(target => {
+
+    target.addEventListener("targetFound", () => {
+
+      console.log(
+        "Target encontrado:",
+        target.getAttribute("data-person-id")
+      );
+
+      /*
+       * Guardamos cuál es el target actual
+       */
+
+      currentTarget = target;
+
+      /*
+       * Mostramos el botón X
+       */
+
+      closeButton.style.display = "flex";
+
+      /*
+       * Esperamos un pequeño momento para
+       * permitir que MindAR establezca
+       * correctamente la posición.
+       */
+
+      setTimeout(() => {
+
+        if (currentTarget === target) {
+
+          target.emit("freeze");
+
+        }
+
+      }, 300);
+
+    });
+
+
+    /*
+     * ==========================================
+     * CUANDO SE PIERDE EL TARGET
+     * ==========================================
+     */
+
+    target.addEventListener("targetLost", () => {
+
+      console.log(
+        "Target perdido:",
+        target.getAttribute("data-person-id")
+      );
+
+      /*
+       * IMPORTANTE:
+       *
+       * No hacemos nada.
+       *
+       * La imagen permanece congelada.
+       */
+
+    });
+
+  });
+
+
+  /*
+   * ==========================================
+   * BOTÓN X
+   * ==========================================
+   */
+
+  closeButton.addEventListener("click", () => {
+
+    console.log("Cerrar imagen AR");
+
+    /*
+     * Si existe un target congelado,
+     * lo descongelamos.
+     */
+
+    if (currentTarget) {
+
+      currentTarget.emit("unfreeze");
+
+      /*
+       * Desactivamos temporalmente
+       * la entidad.
+       */
+
+      currentTarget.object3D.visible = false;
+
+      /*
+       * La volvemos a activar para
+       * permitir una nueva detección.
+       */
+
+      setTimeout(() => {
+
+        currentTarget.object3D.visible = true;
+
+      }, 100);
+
+    }
+
+    /*
+     * Ocultamos el botón
+     */
+
+    closeButton.style.display = "none";
+
+    /*
+     * Permitimos volver a escanear
+     */
+
+    currentTarget = null;
+
+  });
+
+});
+
+</script>
 <body>
 
   <section
