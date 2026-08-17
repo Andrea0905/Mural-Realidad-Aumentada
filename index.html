@@ -222,8 +222,6 @@
 
     </a-entity>
 
-
-
     <!-- ================================================= -->
     <!-- TARGET 1 -->
     <!-- DENISSE -->
@@ -233,8 +231,6 @@
       mindar-image-target="targetIndex: 1"
       data-person-id="denisse"
     ></a-entity>
-
-
 
     <!-- ================================================= -->
     <!-- TARGET 2 -->
@@ -246,8 +242,6 @@
       data-person-id="esther"
     ></a-entity>
 
-
-
     <!-- ================================================= -->
     <!-- TARGET 3 -->
     <!-- RUBÍ -->
@@ -257,8 +251,6 @@
       mindar-image-target="targetIndex: 3"
       data-person-id="rubi"
     ></a-entity>
-
-
 
     <!-- ================================================= -->
     <!-- TARGET 4 -->
@@ -270,8 +262,6 @@
       data-person-id="maria"
     ></a-entity>
 
-
-
     <!-- ================================================= -->
     <!-- TARGET 5 -->
     <!-- PATRICIA -->
@@ -281,8 +271,6 @@
       mindar-image-target="targetIndex: 5"
       data-person-id="patricia"
     ></a-entity>
-
-
 
     <!-- ================================================= -->
     <!-- TARGET 6 -->
@@ -294,10 +282,7 @@
       data-person-id="monica"
     ></a-entity>
 
-
   </a-scene>
-
-
 
   <!-- ================================================= -->
   <!-- ARCHIVOS DEL PROYECTO -->
@@ -308,8 +293,6 @@
   <script src="./js/app.js"></script>
 
   <script src="./js/ar.js"></script>
-
-
 
   <!-- ================================================= -->
   <!-- SISTEMA DE IMAGEN FIJA -->
@@ -395,30 +378,42 @@
 
         function removeImage() {
 
-          /*
-           * Ocultar
+            // ========================================
+            // DETENER AUDIO
+            // ========================================
+            const audio =
+              document.getElementById(
+                "story-audio"
+              );
+           if (audio) {
+              audio.pause();
+              audio.currentTime = 0;
+           }
+           /*
+           * Ocultar imagen
            */
 
           container.classList.remove(
             "show"
           );
-
-
           /*
-           * Eliminar completamente
-           * la imagen.
+           * Eliminar la imagen.
            */
-
           image.src = "";
-
           image.removeAttribute(
             "src"
           );
-
-
           image.alt = "";
+          // ========================================
+          // OCULTAR PANEL
+          // ========================================
 
+          if (storyCard) {
 
+            storyCard.classList.add(
+              "hidden"
+            );
+            }
           /*
            * Ocultar botón.
            */
@@ -439,30 +434,21 @@
             );
 
           }
-
-
           /*
            * Eliminar referencia.
            */
 
           currentTarget = null;
-
-
           /*
            * Liberar bloqueo.
            */
 
           locked = false;
-
-
           console.log(
-            "Imagen anterior eliminada."
+            "Historia cerrada. Listo para escanear nuevamente."
           );
 
         }
-
-
-
         /* =================================================
          * MOSTRAR IMAGEN
          * ================================================= */
@@ -475,8 +461,6 @@
             target.getAttribute(
               "data-person-id"
             );
-
-
           /*
            * Obtener imagen.
            */
@@ -759,40 +743,28 @@
             if (
               currentTarget
             ) {
-
               currentTarget.object3D.visible =
                 true;
-
             }
-
-
             /*
              * Limpiar referencia.
              */
-
             currentTarget =
               null;
-
-
             /*
              * IMPORTANTE:
              *
              * Permitimos nuevamente
              * escanear.
              */
-
             locked =
               false;
-
-
             console.log(
               "Listo para escanear otro marcador."
             );
 
           }
         );
-
-
       }
     );
 

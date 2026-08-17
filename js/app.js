@@ -10,14 +10,10 @@ const storyQuote =
 
 let people = {};
 
-let hideTimer = null;
-
-
 
 // ============================================
 // CARGAR PEOPLE.JSON
 // ============================================
-
 
 async function loadPeople() {
 
@@ -26,17 +22,14 @@ async function loadPeople() {
     const response =
       await fetch("./data/people.json");
 
-
     const data =
       await response.json();
-
 
     data.forEach((person) => {
 
       people[person.id] = person;
 
     });
-
 
     console.log(
       "Personas cargadas:",
@@ -57,15 +50,12 @@ async function loadPeople() {
 }
 
 
-
 loadPeople();
-
 
 
 // ============================================
 // TARGET ENCONTRADO
 // ============================================
-
 
 window.addEventListener(
   "person-found",
@@ -73,7 +63,6 @@ window.addEventListener(
 
     const personId =
       event.detail.personId;
-
 
     const person =
       people[personId];
@@ -91,53 +80,62 @@ window.addEventListener(
     }
 
 
-    clearTimeout(hideTimer);
-
+    // ========================================
+    // MOSTRAR INFORMACIÓN
+    // ========================================
 
     storyName.textContent =
       person.name;
 
-
     storyQuote.textContent =
       person.quote;
 
+
+    // ========================================
+    // CONFIGURAR AUDIO
+    // ========================================
 
     AudioController.setSource(
       person.audio
     );
 
 
+    // ========================================
+    // MOSTRAR PANEL
+    // ========================================
+
     storyCard.classList.remove(
       "hidden"
+    );
+
+
+    console.log(
+      "Panel mostrado:",
+      person.name
     );
 
   }
 );
 
 
-
 // ============================================
 // TARGET PERDIDO
 // ============================================
-
+//
+// IMPORTANTE:
+//
+// YA NO OCULTAMOS EL PANEL.
+//
+// El panel permanecerá fijo hasta
+// presionar el botón X.
+//
 
 window.addEventListener(
   "person-lost",
   () => {
 
-    clearTimeout(hideTimer);
-
-
-    hideTimer = setTimeout(
-      () => {
-
-        storyCard.classList.add(
-          "hidden"
-        );
-
-      },
-
-      1500
+    console.log(
+      "Marcador perdido. El panel permanece fijo."
     );
 
   }
