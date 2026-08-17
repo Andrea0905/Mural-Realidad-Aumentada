@@ -364,77 +364,85 @@
         /* =================================================
          * ELIMINAR IMAGEN
          * ================================================= */
-
         function removeImage() {
 
-            // ========================================
-            // DETENER AUDIO
-            // ========================================
-            const audio =
-              document.getElementById(
-                "story-audio"
-              );
-           if (audio) {
-              audio.pause();
-              audio.currentTime = 0;
-           }
-           /*
-           * Ocultar imagen
-           */
+          console.log("Cerrando historia...");
+
+
+          // ========================================
+          // DETENER AUDIO
+          // ========================================
+
+          const audio =
+            document.getElementById(
+              "story-audio"
+            );
+
+          if (audio) {
+
+            audio.pause();
+
+            audio.currentTime = 0;
+
+          }
+
+
+          // ========================================
+          // OCULTAR IMAGEN
+          // ========================================
 
           container.classList.remove(
             "show"
           );
-          /*
-           * Eliminar la imagen.
-           */
-          image.src = "";
+
+
+          // ========================================
+          // ELIMINAR IMAGEN
+          // ========================================
+
           image.removeAttribute(
             "src"
           );
+
           image.alt = "";
+
+
           // ========================================
-          // OCULTAR PANEL
+          // DESBLOQUEAR PANEL
           // ========================================
 
-          if (storyCard) {
+          if (window.unlockStoryPanel) {
 
-            storyCard.classList.add(
-              "hidden"
-            );
-            }
-          /*
-           * Ocultar botón.
-           */
+            window.unlockStoryPanel();
+
+          }
+
+
+          // ========================================
+          // OCULTAR BOTÓN X
+          // ========================================
 
           closeButton.classList.remove(
             "visible"
           );
 
 
-          /*
-           * Ocultar tarjeta.
-           */
-
-          if (storyCard) {
-
-            storyCard.classList.add(
-              "hidden"
-            );
-
-          }
-          /*
-           * Eliminar referencia.
-           */
+          // ========================================
+          // LIMPIAR TARGET ACTUAL
+          // ========================================
 
           currentTarget = null;
-          /*
-           * Liberar bloqueo.
-           */
+
+
+          // ========================================
+          // PERMITIR NUEVO ESCANEO
+          // ========================================
 
           locked = false;
+
+
           console.log(
-            "Historia cerrada. Listo para escanear nuevamente."
+            "Todo cerrado. Se puede escanear nuevamente."
           );
 
         }

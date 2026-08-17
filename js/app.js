@@ -4,14 +4,14 @@ const storyCard =
 const storyQuote =
   document.querySelector("#story-quote");
 
-
 let people = {};
 
-
-// ============================================
-// ESTADO DEL PANEL
-// ============================================
-
+/*
+ * Indica si ya existe una historia seleccionada.
+ *
+ * false = se puede seleccionar una persona
+ * true  = la historia actual está bloqueada
+ */
 let panelLocked = false;
 
 
@@ -66,14 +66,14 @@ window.addEventListener(
   (event) => {
 
     /*
-     * SI YA HAY UNA HISTORIA ABIERTA,
-     * NO CAMBIAMOS EL PANEL.
+     * SI YA HAY UNA PERSONA SELECCIONADA,
+     * IGNORAMOS CUALQUIER OTRO TARGET.
      */
 
     if (panelLocked) {
 
       console.log(
-        "Panel bloqueado. No se cambia la información."
+        "Panel bloqueado. Se ignora nuevo reconocimiento."
       );
 
       return;
@@ -83,6 +83,18 @@ window.addEventListener(
 
     const personId =
       event.detail.personId;
+
+
+    /*
+     * El target 0 es el título/mural.
+     * No mostramos panel de profesora.
+     */
+
+    if (personId === "titulo") {
+
+      return;
+
+    }
 
 
     const person =
@@ -101,33 +113,43 @@ window.addEventListener(
     }
 
 
-    // ========================================
-    // BLOQUEAR PANEL
-    // ========================================
+    /*
+     * ========================================
+     * BLOQUEAMOS LA SELECCIÓN
+     * ========================================
+     */
 
     panelLocked = true;
 
 
-    // ========================================
-    // MOSTRAR FRASE
-    // ========================================
+    /*
+     * ========================================
+     * MOSTRAR SOLAMENTE LA FRASE
+     *
+     * El nombre ya NO se muestra.
+     * ========================================
+     */
 
     storyQuote.textContent =
       person.quote;
 
 
-    // ========================================
-    // CONFIGURAR AUDIO
-    // ========================================
+    /*
+     * ========================================
+     * CONFIGURAR AUDIO
+     * ========================================
+     */
 
     AudioController.setSource(
       person.audio
     );
 
 
-    // ========================================
-    // MOSTRAR PANEL
-    // ========================================
+    /*
+     * ========================================
+     * MOSTRAR PANEL
+     * ========================================
+     */
 
     storyCard.classList.remove(
       "hidden"
@@ -135,7 +157,7 @@ window.addEventListener(
 
 
     console.log(
-      "Panel bloqueado para:",
+      "Historia seleccionada:",
       personId
     );
 
@@ -149,16 +171,20 @@ window.addEventListener(
 
 window.addEventListener(
   "person-lost",
-  () => {
+  (event) => {
 
     /*
-     * NO HACEMOS NADA.
+     * IMPORTANTE:
      *
-     * El panel permanece fijo.
+     * NO cerramos el panel.
+     * NO cambiamos la información.
+     * NO desbloqueamos.
      */
 
     console.log(
-      "Marcador perdido. Panel permanece fijo."
+      "Target perdido:",
+      event.detail?.personId,
+      "La historia permanece fija."
     );
 
   }
@@ -166,28 +192,40 @@ window.addEventListener(
 
 
 // ============================================
-// FUNCIÓN PARA CERRAR EL PANEL
+// DESBLOQUEAR PANEL
 // ============================================
 
 function unlockStoryPanel() {
 
   panelLocked = false;
 
+
+  /*
+   * Limpiar contenido anterior.
+   */
+
+  storyQuote.textContent = "";
+
+
+  /*
+   * Ocultar panel.
+   */
+
   storyCard.classList.add(
     "hidden"
   );
 
-  storyQuote.textContent = "";
 
   console.log(
-    "Panel desbloqueado."
+    "Panel desbloqueado. Se puede seleccionar otra persona."
   );
 
 }
 
 
 // ============================================
-// HACER DISPONIBLE GLOBALMENTE
+// HACER FUNCIÓN DISPONIBLE
+// PARA EL SISTEMA DEL BOTÓN X
 // ============================================
 
 window.unlockStoryPanel =
