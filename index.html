@@ -28,7 +28,6 @@
 
 <body>
 
-
   <!-- ================================================= -->
   <!-- TARJETA DE INFORMACIÓN -->
   <!-- ================================================= -->
@@ -59,17 +58,33 @@
 
 
   <!-- ================================================= -->
-  <!-- BOTÓN CERRAR -->
+  <!-- IMAGEN FIJA -->
+  <!-- ================================================= -->
+
+  <div
+    id="fixed-image-container"
+  >
+
+    <img
+      id="fixed-image"
+      src=""
+      alt=""
+    >
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- BOTÓN X -->
   <!-- ================================================= -->
 
   <button
     id="close-ar"
     type="button"
-    aria-label="Cerrar realidad aumentada"
+    aria-label="Cerrar"
   >
     ✕
   </button>
-
 
 
   <!-- ================================================= -->
@@ -77,6 +92,8 @@
   <!-- ================================================= -->
 
   <a-scene
+
+    id="ar-scene"
 
     mindar-image="
       imageTargetSrc: ./targets/targets.mind;
@@ -108,7 +125,7 @@
 
 
       <!-- =============================================== -->
-      <!-- IMÁGENES DE LAS MUJERES -->
+      <!-- IMÁGENES -->
       <!-- =============================================== -->
 
       <img
@@ -151,9 +168,7 @@
         src="./assets/models/mural.glb"
       ></a-asset-item>
 
-
     </a-assets>
-
 
 
     <!-- ================================================= -->
@@ -166,20 +181,9 @@
     ></a-camera>
 
 
-
-    <!-- ================================================= -->
-    <!-- CONTENEDOR PARA LA IMAGEN CONGELADA -->
-    <!-- ================================================= -->
-
-    <a-entity
-      id="frozen-overlay"
-    ></a-entity>
-
-
-
     <!-- ================================================= -->
     <!-- TARGET 0 -->
-    <!-- MODELO 3D DEL MURAL -->
+    <!-- MURAL 3D -->
     <!-- ================================================= -->
 
     <a-entity
@@ -206,9 +210,9 @@
     </a-entity>
 
 
-
     <!-- ================================================= -->
-    <!-- TARGET 1: DENISSE -->
+    <!-- TARGET 1 -->
+    <!-- DENISSE -->
     <!-- ================================================= -->
 
     <a-entity
@@ -217,6 +221,8 @@
     >
 
       <a-image
+
+        id="ar-denisse"
 
         src="#overlay-denisse"
 
@@ -233,9 +239,9 @@
     </a-entity>
 
 
-
     <!-- ================================================= -->
-    <!-- TARGET 2: ESTHER -->
+    <!-- TARGET 2 -->
+    <!-- ESTHER -->
     <!-- ================================================= -->
 
     <a-entity
@@ -244,6 +250,8 @@
     >
 
       <a-image
+
+        id="ar-esther"
 
         src="#overlay-esther"
 
@@ -260,9 +268,9 @@
     </a-entity>
 
 
-
     <!-- ================================================= -->
-    <!-- TARGET 3: RUBÍ -->
+    <!-- TARGET 3 -->
+    <!-- RUBÍ -->
     <!-- ================================================= -->
 
     <a-entity
@@ -271,6 +279,8 @@
     >
 
       <a-image
+
+        id="ar-rubi"
 
         src="#overlay-rubi"
 
@@ -287,9 +297,9 @@
     </a-entity>
 
 
-
     <!-- ================================================= -->
-    <!-- TARGET 4: MARÍA -->
+    <!-- TARGET 4 -->
+    <!-- MARÍA -->
     <!-- ================================================= -->
 
     <a-entity
@@ -298,6 +308,8 @@
     >
 
       <a-image
+
+        id="ar-maria"
 
         src="#overlay-maria"
 
@@ -314,9 +326,9 @@
     </a-entity>
 
 
-
     <!-- ================================================= -->
-    <!-- TARGET 5: PATRICIA -->
+    <!-- TARGET 5 -->
+    <!-- PATRICIA -->
     <!-- ================================================= -->
 
     <a-entity
@@ -325,6 +337,8 @@
     >
 
       <a-image
+
+        id="ar-patricia"
 
         src="#overlay-patricia"
 
@@ -341,9 +355,9 @@
     </a-entity>
 
 
-
     <!-- ================================================= -->
-    <!-- TARGET 6: MÓNICA -->
+    <!-- TARGET 6 -->
+    <!-- MÓNICA -->
     <!-- ================================================= -->
 
     <a-entity
@@ -352,6 +366,8 @@
     >
 
       <a-image
+
+        id="ar-monica"
 
         src="#overlay-monica"
 
@@ -371,9 +387,8 @@
   </a-scene>
 
 
-
   <!-- ================================================= -->
-  <!-- TUS SCRIPTS -->
+  <!-- ARCHIVOS DE TU PROYECTO -->
   <!-- ================================================= -->
 
   <script src="./js/audio.js"></script>
@@ -383,488 +398,411 @@
   <script src="./js/ar.js"></script>
 
 
-
   <!-- ================================================= -->
-  <!-- CONTROL DE IMAGEN CONGELADA -->
+  <!-- SISTEMA DE IMAGEN FIJA -->
   <!-- ================================================= -->
 
   <script>
 
-    document.addEventListener("DOMContentLoaded", () => {
-
-
-      /*
-       * ================================================
-       * ELEMENTOS
-       * ================================================
-       */
-
-      const closeButton =
-        document.getElementById("close-ar");
-
-      const frozenOverlay =
-        document.getElementById("frozen-overlay");
-
-
-      /*
-       * Target actualmente seleccionado
-       */
-
-      let currentTarget = null;
-
-
-      /*
-       * Imagen congelada
-       */
-
-      let frozenImage = null;
-
-
-      /*
-       * Evita detectar varias imágenes
-       * al mismo tiempo
-       */
-
-      let isLocked = false;
-
-
-
-      /*
-       * ================================================
-       * FUNCIÓN PARA CONGELAR LA IMAGEN
-       * ================================================
-       */
-
-      function freezeImage(target) {
-
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
 
         /*
-         * Buscar la imagen dentro del target
+         * ================================================
+         * ELEMENTOS
+         * ================================================
          */
 
-        const image =
-          target.querySelector("a-image");
-
-
-        /*
-         * Si no existe imagen,
-         * no hacemos nada.
-         */
-
-        if (!image) {
-
-          console.log(
-            "Este target no contiene una imagen."
+        const fixedContainer =
+          document.getElementById(
+            "fixed-image-container"
           );
 
-          return;
+        const fixedImage =
+          document.getElementById(
+            "fixed-image"
+          );
 
-        }
-
-
-
-        /*
-         * ==============================================
-         * CREAR NUEVA IMAGEN
-         * ==============================================
-         */
-
-        frozenImage =
-          document.createElement("a-image");
-
+        const closeButton =
+          document.getElementById(
+            "close-ar"
+          );
 
 
         /*
-         * Copiar textura
+         * ================================================
+         * VARIABLES
+         * ================================================
          */
 
-        frozenImage.setAttribute(
-          "src",
-          image.getAttribute("src")
-        );
+        let currentTarget = null;
 
+        let isLocked = false;
 
 
         /*
-         * Copiar ancho
+         * ================================================
+         * IMÁGENES DE CADA TARGET
+         * ================================================
          */
 
-        frozenImage.setAttribute(
-          "width",
-          image.getAttribute("width")
-        );
+        const targetImages = {
 
+          denisse:
+            "./assets/images/denisse.png",
+
+          esther:
+            "./assets/images/esther-06.png",
+
+          rubi:
+            "./assets/images/rubí.png",
+
+          maria:
+            "./assets/images/maria.png",
+
+          patricia:
+            "./assets/images/patricia.png",
+
+          monica:
+            "./assets/images/monica.png"
+
+        };
 
 
         /*
-         * Copiar alto
+         * ================================================
+         * MOSTRAR IMAGEN FIJA
+         * ================================================
          */
 
-        frozenImage.setAttribute(
-          "height",
-          image.getAttribute("height")
-        );
+        function showFixedImage(target) {
 
-
-
-        /*
-         * Mantener transparencia
-         */
-
-        frozenImage.setAttribute(
-          "transparent",
-          "true"
-        );
-
-
-
-        /*
-         * ==============================================
-         * OBTENER TRANSFORMACIÓN MUNDIAL
-         * ==============================================
-         */
-
-        const worldPosition =
-          new THREE.Vector3();
-
-        const worldQuaternion =
-          new THREE.Quaternion();
-
-        const worldScale =
-          new THREE.Vector3();
-
-
-
-        /*
-         * Actualizar matriz
-         */
-
-        image.object3D.updateWorldMatrix(
-          true,
-          false
-        );
-
-
-
-        /*
-         * Separar posición,
-         * rotación y escala
-         */
-
-        image.object3D.matrixWorld.decompose(
-
-          worldPosition,
-
-          worldQuaternion,
-
-          worldScale
-
-        );
-
-
-
-        /*
-         * ==============================================
-         * APLICAR POSICIÓN
-         * ==============================================
-         */
-
-        frozenImage.object3D.position.copy(
-          worldPosition
-        );
-
-
-
-        /*
-         * ==============================================
-         * APLICAR ROTACIÓN
-         * ==============================================
-         */
-
-        frozenImage.object3D.quaternion.copy(
-          worldQuaternion
-        );
-
-
-
-        /*
-         * ==============================================
-         * APLICAR ESCALA
-         * ==============================================
-         */
-
-        frozenImage.object3D.scale.copy(
-          worldScale
-        );
-
-
-
-        /*
-         * ==============================================
-         * AGREGAR AL ESCENARIO
-         * ==============================================
-         */
-
-        frozenOverlay.appendChild(
-          frozenImage
-        );
-
-
-
-        /*
-         * ==============================================
-         * OCULTAR TARGET DE MINDAR
-         * ==============================================
-         *
-         * Esto es MUY importante.
-         *
-         * MindAR deja de controlar visualmente
-         * la imagen original.
-         */
-
-        target.object3D.visible = false;
-
-
-
-        /*
-         * ==============================================
-         * MOSTRAR BOTÓN X
-         * ==============================================
-         */
-
-        closeButton.classList.add(
-          "visible"
-        );
-
-
-
-        console.log(
-          "Imagen congelada:",
-          target.getAttribute(
-            "data-person-id"
-          )
-        );
-
-      }
-
-
-
-      /*
-       * ================================================
-       * DETECTAR TARGETS
-       * ================================================
-       */
-
-      document
-        .querySelectorAll(
-          "[mindar-image-target]"
-        )
-        .forEach(target => {
-
+          const personId =
+            target.getAttribute(
+              "data-person-id"
+            );
 
 
           /*
-           * ==============================================
-           * TARGET ENCONTRADO
-           * ==============================================
+           * Obtener la imagen correspondiente
            */
 
-          target.addEventListener(
-            "targetFound",
-            () => {
-
-
-              console.log(
-                "Target encontrado:",
-                target.getAttribute(
-                  "data-person-id"
-                )
-              );
-
-
-
-              /*
-               * Si ya hay una imagen congelada,
-               * ignoramos otros targets.
-               */
-
-              if (isLocked) {
-
-                return;
-
-              }
-
-
-
-              /*
-               * Guardar target actual
-               */
-
-              currentTarget =
-                target;
-
-
-
-              /*
-               * Bloquear detección
-               */
-
-              isLocked = true;
-
-
-
-              /*
-               * Esperar a que MindAR termine
-               * de colocar correctamente la imagen.
-               */
-
-              setTimeout(
-                () => {
-
-
-                  /*
-                   * Verificar que todavía
-                   * sea el target seleccionado.
-                   */
-
-                  if (
-                    currentTarget === target &&
-                    isLocked
-                  ) {
-
-                    freezeImage(
-                      target
-                    );
-
-                  }
-
-                },
-                500
-              );
-
-            }
-          );
-
+          const imageSrc =
+            targetImages[personId];
 
 
           /*
-           * ==============================================
-           * TARGET PERDIDO
-           * ==============================================
+           * Comprobar que exista
            */
 
-          target.addEventListener(
-            "targetLost",
-            () => {
+          if (!imageSrc) {
 
+            console.log(
+              "No se encontró imagen para:",
+              personId
+            );
 
-              console.log(
-                "Target perdido:",
-                target.getAttribute(
-                  "data-person-id"
-                )
-              );
+            isLocked = false;
 
-
-              /*
-               * NO hacemos nada.
-               *
-               * La copia congelada permanece.
-               */
-
-            }
-          );
-
-        });
-
-
-
-      /*
-       * ================================================
-       * BOTÓN X
-       * ================================================
-       */
-
-      closeButton.addEventListener(
-        "click",
-        () => {
-
-
-          console.log(
-            "Cerrando imagen AR..."
-          );
-
-          /*
-           * ==============================================
-           * ELIMINAR IMAGEN CONGELADA
-           * ==============================================
-           */
-
-          if (frozenImage) {
-
-            frozenImage.remove();
-
-            frozenImage = null;
+            return;
 
           }
 
 
-
           /*
-           * ==============================================
-           * RESTAURAR TARGET ORIGINAL
-           * ==============================================
+           * =============================================
+           * COLOCAR IMAGEN
+           * =============================================
            */
 
-          if (currentTarget) {
+          fixedImage.src =
+            imageSrc;
 
-            currentTarget.object3D.visible =
-              true;
 
-          }
-
+          fixedImage.alt =
+            "Historia de " + personId;
 
 
           /*
-           * ==============================================
-           * LIMPIAR TARGET
-           * ==============================================
+           * =============================================
+           * MOSTRAR IMAGEN
+           * =============================================
            */
 
-          currentTarget = null;
-
+          fixedContainer.classList.add(
+            "show"
+          );
 
 
           /*
-           * ==============================================
-           * DESBLOQUEAR ESCANEO
-           * ==============================================
+           * =============================================
+           * MOSTRAR X
+           * =============================================
            */
 
-          isLocked = false;
-
-
-
-          /*
-           * ==============================================
-           * OCULTAR BOTÓN X
-           * ==============================================
-           */
-
-          closeButton.classList.remove(
+          closeButton.classList.add(
             "visible"
           );
 
 
+          /*
+           * =============================================
+           * OCULTAR TARGET DE MINDAR
+           * =============================================
+           */
+
+          target.object3D.visible =
+            false;
+
 
           console.log(
-            "Escaneo nuevamente activado."
+            "Imagen fija mostrada:",
+            personId
           );
 
         }
-      );
 
-    });
+
+        /*
+         * ================================================
+         * REGISTRAR TODOS LOS TARGETS
+         * ================================================
+         */
+
+        const targets =
+          document.querySelectorAll(
+            "[mindar-image-target]"
+          );
+
+
+        targets.forEach(
+          function (target) {
+
+
+            /*
+             * ============================================
+             * TARGET ENCONTRADO
+             * ============================================
+             */
+
+            target.addEventListener(
+              "targetFound",
+              function () {
+
+
+                const personId =
+                  target.getAttribute(
+                    "data-person-id"
+                  );
+
+
+                console.log(
+                  "Target encontrado:",
+                  personId
+                );
+
+
+                /*
+                 * El target 0 es el mural 3D.
+                 *
+                 * No lo procesamos como imagen.
+                 */
+
+                if (
+                  personId === "titulo"
+                ) {
+
+                  return;
+
+                }
+
+
+                /*
+                 * Si ya tenemos una imagen,
+                 * ignoramos otros targets.
+                 */
+
+                if (isLocked) {
+
+                  return;
+
+                }
+
+
+                /*
+                 * Bloquear
+                 */
+
+                isLocked = true;
+
+
+                /*
+                 * Guardar target
+                 */
+
+                currentTarget =
+                  target;
+
+
+                /*
+                 * Esperar un poco para
+                 * confirmar detección
+                 */
+
+                setTimeout(
+                  function () {
+
+
+                    /*
+                     * Comprobar que sigue
+                     * siendo el target actual
+                     */
+
+                    if (
+                      currentTarget ===
+                      target
+                    ) {
+
+                      showFixedImage(
+                        target
+                      );
+
+                    }
+
+                  },
+                  400
+                );
+
+              }
+            );
+
+
+            /*
+             * ============================================
+             * TARGET PERDIDO
+             * ============================================
+             */
+
+            target.addEventListener(
+              "targetLost",
+              function () {
+
+                console.log(
+                  "Target perdido:",
+                  target.getAttribute(
+                    "data-person-id"
+                  )
+                );
+
+
+                /*
+                 * NO hacemos nada.
+                 *
+                 * La imagen HTML permanece
+                 * completamente fija.
+                 */
+
+              }
+            );
+
+          }
+        );
+
+
+        /*
+         * ================================================
+         * BOTÓN X
+         * ================================================
+         */
+
+        closeButton.addEventListener(
+          "click",
+          function () {
+
+
+            console.log(
+              "Cerrando imagen..."
+            );
+
+
+            /*
+             * ==========================================
+             * OCULTAR IMAGEN
+             * ==========================================
+             */
+
+            fixedContainer.classList.remove(
+              "show"
+            );
+
+
+            /*
+             * ==========================================
+             * LIMPIAR SRC
+             * ==========================================
+             */
+
+            fixedImage.src =
+              "";
+
+
+            /*
+             * ==========================================
+             * OCULTAR X
+             * ==========================================
+             */
+
+            closeButton.classList.remove(
+              "visible"
+            );
+
+
+            /*
+             * ==========================================
+             * RESTAURAR TARGET
+             * ==========================================
+             */
+
+            if (
+              currentTarget
+            ) {
+
+              currentTarget.object3D.visible =
+                true;
+
+            }
+
+
+            /*
+             * ==========================================
+             * LIMPIAR TARGET
+             * ==========================================
+             */
+
+            currentTarget =
+              null;
+
+
+            /*
+             * ==========================================
+             * VOLVER A PERMITIR ESCANEO
+             * ==========================================
+             */
+
+            isLocked =
+              false;
+
+
+            console.log(
+              "Escaneo nuevamente activado."
+            );
+
+          }
+        );
+
+      }
+    );
 
   </script>
 
