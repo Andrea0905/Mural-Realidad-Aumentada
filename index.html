@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+
   <meta charset="utf-8">
 
   <meta
@@ -13,266 +14,31 @@
 
   <link rel="stylesheet" href="./css/styles.css">
 
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
+  <!-- A-Frame Extras -->
   <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
 
+  <!-- MindAR -->
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
 </head>
-<script>
-AFRAME.registerComponent('freeze-tracking', {
 
-  schema: {
-    factor: {
-      type: 'number',
-      default: 0.10
-    }
-  },
 
-  init: function () {
-
-    this.position = new THREE.Vector3();
-    this.quaternion = new THREE.Quaternion();
-    this.scale = new THREE.Vector3();
-
-    this.initialized = false;
-    this.frozen = false;
-
-    this.el.addEventListener('freeze', () => {
-      this.freeze();
-    });
-
-    this.el.addEventListener('unfreeze', () => {
-      this.unfreeze();
-    });
-  },
-
-  tick: function () {
-
-    const object = this.el.object3D;
-
-    /*
-     * Si está congelado RESTAURAMOS
-     * posición, rotación y escala guardadas.
-     */
-    if (this.frozen) {
-      object.position.copy(this.position);
-      object.quaternion.copy(this.quaternion);
-      object.scale.copy(this.scale);
-      return;
-    }
-
-    /*
-     * Primera detección
-     */
-    if (!this.initialized) {
-
-      this.position.copy(object.position);
-      this.quaternion.copy(object.quaternion);
-      this.scale.copy(object.scale);
-
-      this.initialized = true;
-
-      return;
-    }
-
-    /*
-     * Suavizamos el movimiento mientras
-     * todavía está siguiendo el marcador.
-     */
-
-    this.position.lerp(
-      object.position,
-      this.data.factor
-    );
-
-    this.quaternion.slerp(
-      object.quaternion,
-      this.data.factor
-    );
-
-    this.scale.lerp(
-      object.scale,
-      this.data.factor
-    );
-
-    object.position.copy(this.position);
-    object.quaternion.copy(this.quaternion);
-    object.scale.copy(this.scale);
-  },
-
-  freeze: function () {
-
-    /*
-     * Guardamos la posición exacta
-     * donde fue detectado.
-     */
-
-    this.position.copy(this.el.object3D.position);
-    this.quaternion.copy(this.el.object3D.quaternion);
-    this.scale.copy(this.el.object3D.scale);
-
-    this.frozen = true;
-
-    console.log("Imagen congelada");
-  },
-
-  unfreeze: function () {
-
-    this.frozen = false;
-    this.initialized = false;
-
-    console.log("Seguimiento reactivado");
-  }
-
-});
-</script>
-<script>
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  const closeButton = document.getElementById("close-ar");
-
-  const scene = document.querySelector("a-scene");
-
-  let currentTarget = null;
-  let isLocked = false;
-
-  /*
-   * ==========================================
-   * CUANDO SE DETECTA UN TARGET
-   * ==========================================
-   */
-
-  document.querySelectorAll(
-    "[mindar-image-target]"
-  ).forEach(target => {
-
-    target.addEventListener("targetFound", () => {
-
-      console.log(
-        "Target encontrado:",
-        target.getAttribute("data-person-id")
-      );
-
-      /*
-       * Si ya hay un target congelado,
-       * no permitimos detectar otro
-       */
-
-      if (isLocked) {
-        return;
-      }
-
-      /*
-       * Guardamos cuál es el target actual
-       * y bloqueamos la detección de otros
-       */
-
-      currentTarget = target;
-      isLocked = true;
-
-      /*
-       * Mostramos el botón X
-       */
-
-      closeButton.classList.add("visible");
-
-      /*
-       * Esperamos un pequeño momento para
-       * permitir que MindAR establezca
-       * correctamente la posición.
-       */
-
-      setTimeout(() => {
-
-        if (currentTarget === target) {
-
-          target.emit("freeze");
-
-        }
-
-      }, 300);
-
-    });
-
-
-    /*
-     * ==========================================
-     * CUANDO SE PIERDE EL TARGET
-     * ==========================================
-     */
-
-    target.addEventListener("targetLost", () => {
-
-      console.log(
-        "Target perdido:",
-        target.getAttribute("data-person-id")
-      );
-
-      /*
-       * Si el target que se perdió es el actual
-       * y está congelado, dejamos que permanezca
-       * congelado hasta que se presione X
-       */
-
-    });
-
-  });
-
-
-  /*
-   * ==========================================
-   * BOTÓN X
-   * ==========================================
-   */
-
-  closeButton.addEventListener("click", () => {
-
-    console.log("Cerrar imagen AR");
-
-    /*
-     * Si existe un target congelado,
-     * lo desbloqueamos y ocultamos
-     */
-
-    if (currentTarget) {
-
-      currentTarget.emit("unfreeze");
-
-      /*
-       * Ocultamos la imagen permanentemente
-       */
-
-      currentTarget.object3D.visible = false;
-
-    }
-
-    /*
-     * Ocultamos el botón
-     */
-
-    closeButton.classList.remove("visible");
-
-    /*
-     * Permitimos volver a escanear
-     */
-
-    currentTarget = null;
-    isLocked = false;
-
-  });
-
-});
-
-</script>
 <body>
+
+
+  <!-- ================================================= -->
+  <!-- TARJETA DE INFORMACIÓN -->
+  <!-- ================================================= -->
 
   <section
     id="story-card"
     class="story-card hidden"
     aria-live="polite"
   >
+
     <h2 id="story-name"></h2>
 
     <p id="story-quote"></p>
@@ -288,7 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
       id="story-audio"
       preload="none"
     ></audio>
+
   </section>
+
+
+  <!-- ================================================= -->
+  <!-- BOTÓN CERRAR -->
+  <!-- ================================================= -->
 
   <button
     id="close-ar"
@@ -298,6 +70,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ✕
   </button>
 
+
+
+  <!-- ================================================= -->
+  <!-- ESCENA AR -->
+  <!-- ================================================= -->
 
   <a-scene
 
@@ -329,7 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <a-assets timeout="15000">
 
-      <!-- PNG DE CADA MUJER -->
+
+      <!-- =============================================== -->
+      <!-- IMÁGENES DE LAS MUJERES -->
+      <!-- =============================================== -->
 
       <img
         id="overlay-denisse"
@@ -362,13 +142,15 @@ document.addEventListener("DOMContentLoaded", () => {
       >
 
 
-      <!-- MODELO ANIMADO DEL TARGET 0 -->
+      <!-- =============================================== -->
+      <!-- MODELO 3D -->
+      <!-- =============================================== -->
 
       <a-asset-item
         id="modelo-mujeres"
         src="./assets/models/mural.glb"
-      >
-      </a-asset-item>
+      ></a-asset-item>
+
 
     </a-assets>
 
@@ -381,14 +163,23 @@ document.addEventListener("DOMContentLoaded", () => {
     <a-camera
       position="0 0 0"
       look-controls="enabled: false"
-    >
-    </a-camera>
+    ></a-camera>
+
+
+
+    <!-- ================================================= -->
+    <!-- CONTENEDOR PARA LA IMAGEN CONGELADA -->
+    <!-- ================================================= -->
+
+    <a-entity
+      id="frozen-overlay"
+    ></a-entity>
 
 
 
     <!-- ================================================= -->
     <!-- TARGET 0 -->
-    <!-- MODELO MUJERES.GLB -->
+    <!-- MODELO 3D DEL MURAL -->
     <!-- ================================================= -->
 
     <a-entity
@@ -410,8 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         animation-mixer
 
-      >
-      </a-gltf-model>
+      ></a-gltf-model>
 
     </a-entity>
 
@@ -424,18 +214,21 @@ document.addEventListener("DOMContentLoaded", () => {
     <a-entity
       mindar-image-target="targetIndex: 1"
       data-person-id="denisse"
-      freeze-tracking
     >
 
       <a-image
+
         src="#overlay-denisse"
+
         position="0 0 0.05"
+
         width="0.97"
+
         height="2.09"
+
         transparent="true"
-        
-      >
-      </a-image>
+
+      ></a-image>
 
     </a-entity>
 
@@ -448,17 +241,21 @@ document.addEventListener("DOMContentLoaded", () => {
     <a-entity
       mindar-image-target="targetIndex: 2"
       data-person-id="esther"
-      freeze-tracking
     >
 
       <a-image
+
         src="#overlay-esther"
+
         position="0 0 0.05"
+
         width="0.97"
+
         height="2.09"
+
         transparent="true"
-      >
-      </a-image>
+
+      ></a-image>
 
     </a-entity>
 
@@ -471,17 +268,21 @@ document.addEventListener("DOMContentLoaded", () => {
     <a-entity
       mindar-image-target="targetIndex: 3"
       data-person-id="rubi"
-      freeze-tracking
     >
 
       <a-image
+
         src="#overlay-rubi"
+
         position="0 0 0.05"
+
         width="0.97"
+
         height="2.09"
+
         transparent="true"
-      >
-      </a-image>
+
+      ></a-image>
 
     </a-entity>
 
@@ -494,17 +295,21 @@ document.addEventListener("DOMContentLoaded", () => {
     <a-entity
       mindar-image-target="targetIndex: 4"
       data-person-id="maria"
-      freeze-tracking
     >
 
       <a-image
+
         src="#overlay-maria"
+
         position="0 0 0.05"
+
         width="0.97"
+
         height="2.09"
+
         transparent="true"
-      >
-      </a-image>
+
+      ></a-image>
 
     </a-entity>
 
@@ -517,17 +322,21 @@ document.addEventListener("DOMContentLoaded", () => {
     <a-entity
       mindar-image-target="targetIndex: 5"
       data-person-id="patricia"
-      freeze-tracking
     >
 
       <a-image
+
         src="#overlay-patricia"
+
         position="0 0 0.05"
+
         width="0.97"
+
         height="2.09"
+
         transparent="true"
-      >
-      </a-image>
+
+      ></a-image>
 
     </a-entity>
 
@@ -540,17 +349,21 @@ document.addEventListener("DOMContentLoaded", () => {
     <a-entity
       mindar-image-target="targetIndex: 6"
       data-person-id="monica"
-      freeze-tracking
     >
 
       <a-image
+
         src="#overlay-monica"
+
         position="0 0 0.05"
+
         width="0.97"
+
         height="2.09"
+
         transparent="true"
-      >
-      </a-image>
+
+      ></a-image>
 
     </a-entity>
 
@@ -558,9 +371,503 @@ document.addEventListener("DOMContentLoaded", () => {
   </a-scene>
 
 
+
+  <!-- ================================================= -->
+  <!-- TUS SCRIPTS -->
+  <!-- ================================================= -->
+
   <script src="./js/audio.js"></script>
+
   <script src="./js/app.js"></script>
+
   <script src="./js/ar.js"></script>
+
+
+
+  <!-- ================================================= -->
+  <!-- CONTROL DE IMAGEN CONGELADA -->
+  <!-- ================================================= -->
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+
+      /*
+       * ================================================
+       * ELEMENTOS
+       * ================================================
+       */
+
+      const closeButton =
+        document.getElementById("close-ar");
+
+      const frozenOverlay =
+        document.getElementById("frozen-overlay");
+
+
+      /*
+       * Target actualmente seleccionado
+       */
+
+      let currentTarget = null;
+
+
+      /*
+       * Imagen congelada
+       */
+
+      let frozenImage = null;
+
+
+      /*
+       * Evita detectar varias imágenes
+       * al mismo tiempo
+       */
+
+      let isLocked = false;
+
+
+
+      /*
+       * ================================================
+       * FUNCIÓN PARA CONGELAR LA IMAGEN
+       * ================================================
+       */
+
+      function freezeImage(target) {
+
+
+        /*
+         * Buscar la imagen dentro del target
+         */
+
+        const image =
+          target.querySelector("a-image");
+
+
+        /*
+         * Si no existe imagen,
+         * no hacemos nada.
+         */
+
+        if (!image) {
+
+          console.log(
+            "Este target no contiene una imagen."
+          );
+
+          return;
+
+        }
+
+
+
+        /*
+         * ==============================================
+         * CREAR NUEVA IMAGEN
+         * ==============================================
+         */
+
+        frozenImage =
+          document.createElement("a-image");
+
+
+
+        /*
+         * Copiar textura
+         */
+
+        frozenImage.setAttribute(
+          "src",
+          image.getAttribute("src")
+        );
+
+
+
+        /*
+         * Copiar ancho
+         */
+
+        frozenImage.setAttribute(
+          "width",
+          image.getAttribute("width")
+        );
+
+
+
+        /*
+         * Copiar alto
+         */
+
+        frozenImage.setAttribute(
+          "height",
+          image.getAttribute("height")
+        );
+
+
+
+        /*
+         * Mantener transparencia
+         */
+
+        frozenImage.setAttribute(
+          "transparent",
+          "true"
+        );
+
+
+
+        /*
+         * ==============================================
+         * OBTENER TRANSFORMACIÓN MUNDIAL
+         * ==============================================
+         */
+
+        const worldPosition =
+          new THREE.Vector3();
+
+        const worldQuaternion =
+          new THREE.Quaternion();
+
+        const worldScale =
+          new THREE.Vector3();
+
+
+
+        /*
+         * Actualizar matriz
+         */
+
+        image.object3D.updateWorldMatrix(
+          true,
+          false
+        );
+
+
+
+        /*
+         * Separar posición,
+         * rotación y escala
+         */
+
+        image.object3D.matrixWorld.decompose(
+
+          worldPosition,
+
+          worldQuaternion,
+
+          worldScale
+
+        );
+
+
+
+        /*
+         * ==============================================
+         * APLICAR POSICIÓN
+         * ==============================================
+         */
+
+        frozenImage.object3D.position.copy(
+          worldPosition
+        );
+
+
+
+        /*
+         * ==============================================
+         * APLICAR ROTACIÓN
+         * ==============================================
+         */
+
+        frozenImage.object3D.quaternion.copy(
+          worldQuaternion
+        );
+
+
+
+        /*
+         * ==============================================
+         * APLICAR ESCALA
+         * ==============================================
+         */
+
+        frozenImage.object3D.scale.copy(
+          worldScale
+        );
+
+
+
+        /*
+         * ==============================================
+         * AGREGAR AL ESCENARIO
+         * ==============================================
+         */
+
+        frozenOverlay.appendChild(
+          frozenImage
+        );
+
+
+
+        /*
+         * ==============================================
+         * OCULTAR TARGET DE MINDAR
+         * ==============================================
+         *
+         * Esto es MUY importante.
+         *
+         * MindAR deja de controlar visualmente
+         * la imagen original.
+         */
+
+        target.object3D.visible = false;
+
+
+
+        /*
+         * ==============================================
+         * MOSTRAR BOTÓN X
+         * ==============================================
+         */
+
+        closeButton.classList.add(
+          "visible"
+        );
+
+
+
+        console.log(
+          "Imagen congelada:",
+          target.getAttribute(
+            "data-person-id"
+          )
+        );
+
+      }
+
+
+
+      /*
+       * ================================================
+       * DETECTAR TARGETS
+       * ================================================
+       */
+
+      document
+        .querySelectorAll(
+          "[mindar-image-target]"
+        )
+        .forEach(target => {
+
+
+
+          /*
+           * ==============================================
+           * TARGET ENCONTRADO
+           * ==============================================
+           */
+
+          target.addEventListener(
+            "targetFound",
+            () => {
+
+
+              console.log(
+                "Target encontrado:",
+                target.getAttribute(
+                  "data-person-id"
+                )
+              );
+
+
+
+              /*
+               * Si ya hay una imagen congelada,
+               * ignoramos otros targets.
+               */
+
+              if (isLocked) {
+
+                return;
+
+              }
+
+
+
+              /*
+               * Guardar target actual
+               */
+
+              currentTarget =
+                target;
+
+
+
+              /*
+               * Bloquear detección
+               */
+
+              isLocked = true;
+
+
+
+              /*
+               * Esperar a que MindAR termine
+               * de colocar correctamente la imagen.
+               */
+
+              setTimeout(
+                () => {
+
+
+                  /*
+                   * Verificar que todavía
+                   * sea el target seleccionado.
+                   */
+
+                  if (
+                    currentTarget === target &&
+                    isLocked
+                  ) {
+
+                    freezeImage(
+                      target
+                    );
+
+                  }
+
+                },
+                500
+              );
+
+            }
+          );
+
+
+
+          /*
+           * ==============================================
+           * TARGET PERDIDO
+           * ==============================================
+           */
+
+          target.addEventListener(
+            "targetLost",
+            () => {
+
+
+              console.log(
+                "Target perdido:",
+                target.getAttribute(
+                  "data-person-id"
+                )
+              );
+
+
+              /*
+               * NO hacemos nada.
+               *
+               * La copia congelada permanece.
+               */
+
+            }
+          );
+
+        });
+
+
+
+      /*
+       * ================================================
+       * BOTÓN X
+       * ================================================
+       */
+
+      closeButton.addEventListener(
+        "click",
+        () => {
+
+
+          console.log(
+            "Cerrando imagen AR..."
+          );
+
+          /*
+           * ==============================================
+           * ELIMINAR IMAGEN CONGELADA
+           * ==============================================
+           */
+
+          if (frozenImage) {
+
+            frozenImage.remove();
+
+            frozenImage = null;
+
+          }
+
+
+
+          /*
+           * ==============================================
+           * RESTAURAR TARGET ORIGINAL
+           * ==============================================
+           */
+
+          if (currentTarget) {
+
+            currentTarget.object3D.visible =
+              true;
+
+          }
+
+
+
+          /*
+           * ==============================================
+           * LIMPIAR TARGET
+           * ==============================================
+           */
+
+          currentTarget = null;
+
+
+
+          /*
+           * ==============================================
+           * DESBLOQUEAR ESCANEO
+           * ==============================================
+           */
+
+          isLocked = false;
+
+
+
+          /*
+           * ==============================================
+           * OCULTAR BOTÓN X
+           * ==============================================
+           */
+
+          closeButton.classList.remove(
+            "visible"
+          );
+
+
+
+          console.log(
+            "Escaneo nuevamente activado."
+          );
+
+        }
+      );
+
+    });
+
+  </script>
+
 
 </body>
 
