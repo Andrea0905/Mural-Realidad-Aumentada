@@ -14,24 +14,9 @@
 
   <link rel="stylesheet" href="./css/styles.css">
 
-
-  <!-- ================================================= -->
-  <!-- A-FRAME -->
-  <!-- ================================================= -->
-
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-
-  <!-- ================================================= -->
-  <!-- A-FRAME EXTRAS -->
-  <!-- ================================================= -->
-
   <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
-
-
-  <!-- ================================================= -->
-  <!-- MINDAR -->
-  <!-- ================================================= -->
 
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
@@ -72,12 +57,10 @@
 
 
   <!-- ================================================= -->
-  <!-- CONTENEDOR DE LA IMAGEN FIJA -->
+  <!-- IMAGEN FIJA -->
   <!-- ================================================= -->
 
-  <div
-    id="fixed-image-container"
-  >
+  <div id="fixed-image-container">
 
     <img
       id="fixed-image"
@@ -105,7 +88,7 @@
 
 
   <!-- ================================================= -->
-  <!-- ESCENA DE REALIDAD AUMENTADA -->
+  <!-- ESCENA AR -->
   <!-- ================================================= -->
 
   <a-scene
@@ -134,7 +117,6 @@
   >
 
 
-
     <!-- ================================================= -->
     <!-- RECURSOS -->
     <!-- ================================================= -->
@@ -142,59 +124,32 @@
     <a-assets timeout="15000">
 
 
-      <!-- =============================================== -->
-      <!-- IMAGEN DE DENISSE -->
-      <!-- =============================================== -->
-
+      <!-- IMÁGENES -->
+      
       <img
         id="overlay-denisse"
         src="./assets/images/denisse.png"
       >
-
-
-      <!-- =============================================== -->
-      <!-- IMAGEN DE ESTHER -->
-      <!-- =============================================== -->
 
       <img
         id="overlay-esther"
         src="./assets/images/esther-06.png"
       >
 
-
-      <!-- =============================================== -->
-      <!-- IMAGEN DE RUBÍ -->
-      <!-- =============================================== -->
-
       <img
         id="overlay-rubi"
         src="./assets/images/rubí.png"
       >
-
-
-      <!-- =============================================== -->
-      <!-- IMAGEN DE MARÍA -->
-      <!-- =============================================== -->
 
       <img
         id="overlay-maria"
         src="./assets/images/maria.png"
       >
 
-
-      <!-- =============================================== -->
-      <!-- IMAGEN DE PATRICIA -->
-      <!-- =============================================== -->
-
       <img
         id="overlay-patricia"
         src="./assets/images/patricia.png"
       >
-
-
-      <!-- =============================================== -->
-      <!-- IMAGEN DE MÓNICA -->
-      <!-- =============================================== -->
 
       <img
         id="overlay-monica"
@@ -202,15 +157,12 @@
       >
 
 
-      <!-- =============================================== -->
       <!-- MODELO 3D -->
-      <!-- =============================================== -->
 
       <a-asset-item
         id="modelo-mujeres"
         src="./assets/models/mural.glb"
       ></a-asset-item>
-
 
     </a-assets>
 
@@ -238,19 +190,12 @@
     >
 
       <a-gltf-model
-
         id="modelo-mujeres-ar"
-
         src="#modelo-mujeres"
-
         position="0 0 0.05"
-
         rotation="0 0 0"
-
         scale="0.3 0.3 0.3"
-
         animation-mixer
-
       ></a-gltf-model>
 
     </a-entity>
@@ -265,25 +210,7 @@
     <a-entity
       mindar-image-target="targetIndex: 1"
       data-person-id="denisse"
-    >
-
-      <a-image
-
-        id="ar-denisse"
-
-        src="#overlay-denisse"
-
-        position="0 0 0.05"
-
-        width="0.97"
-
-        height="2.09"
-
-        transparent="true"
-
-      ></a-image>
-
-    </a-entity>
+    ></a-entity>
 
 
 
@@ -295,25 +222,7 @@
     <a-entity
       mindar-image-target="targetIndex: 2"
       data-person-id="esther"
-    >
-
-      <a-image
-
-        id="ar-esther"
-
-        src="#overlay-esther"
-
-        position="0 0 0.05"
-
-        width="0.97"
-
-        height="2.09"
-
-        transparent="true"
-
-      ></a-image>
-
-    </a-entity>
+    ></a-entity>
 
 
 
@@ -325,25 +234,7 @@
     <a-entity
       mindar-image-target="targetIndex: 3"
       data-person-id="rubi"
-    >
-
-      <a-image
-
-        id="ar-rubi"
-
-        src="#overlay-rubi"
-
-        position="0 0 0.05"
-
-        width="0.97"
-
-        height="2.09"
-
-        transparent="true"
-
-      ></a-image>
-
-    </a-entity>
+    ></a-entity>
 
 
 
@@ -355,25 +246,7 @@
     <a-entity
       mindar-image-target="targetIndex: 4"
       data-person-id="maria"
-    >
-
-      <a-image
-
-        id="ar-maria"
-
-        src="#overlay-maria"
-
-        position="0 0 0.05"
-
-        width="0.97"
-
-        height="2.09"
-
-        transparent="true"
-
-      ></a-image>
-
-    </a-entity>
+    ></a-entity>
 
 
 
@@ -385,25 +258,7 @@
     <a-entity
       mindar-image-target="targetIndex: 5"
       data-person-id="patricia"
-    >
-
-      <a-image
-
-        id="ar-patricia"
-
-        src="#overlay-patricia"
-
-        position="0 0 0.05"
-
-        width="0.97"
-
-        height="2.09"
-
-        transparent="true"
-
-      ></a-image>
-
-    </a-entity>
+    ></a-entity>
 
 
 
@@ -415,25 +270,7 @@
     <a-entity
       mindar-image-target="targetIndex: 6"
       data-person-id="monica"
-    >
-
-      <a-image
-
-        id="ar-monica"
-
-        src="#overlay-monica"
-
-        position="0 0 0.05"
-
-        width="0.97"
-
-        height="2.09"
-
-        transparent="true"
-
-      ></a-image>
-
-    </a-entity>
+    ></a-entity>
 
 
   </a-scene>
@@ -453,7 +290,7 @@
 
 
   <!-- ================================================= -->
-  <!-- CONTROL DE IMÁGENES FIJAS -->
+  <!-- SISTEMA DE IMAGEN FIJA -->
   <!-- ================================================= -->
 
   <script>
@@ -467,13 +304,13 @@
          * ELEMENTOS
          * ================================================= */
 
-        const fixedContainer =
+        const container =
           document.getElementById(
             "fixed-image-container"
           );
 
 
-        const fixedImage =
+        const image =
           document.getElementById(
             "fixed-image"
           );
@@ -485,14 +322,20 @@
           );
 
 
+        const storyCard =
+          document.getElementById(
+            "story-card"
+          );
+
+
 
         /* =================================================
-         * VARIABLES
+         * ESTADO
          * ================================================= */
 
         let currentTarget = null;
 
-        let isLocked = false;
+        let locked = false;
 
 
 
@@ -500,7 +343,7 @@
          * IMÁGENES
          * ================================================= */
 
-        const targetImages = {
+        const images = {
 
           denisse:
             "./assets/images/denisse.png",
@@ -525,71 +368,86 @@
 
 
         /* =================================================
-         * FUNCIÓN:
-         * LIMPIAR COMPLETAMENTE LA IMAGEN ANTERIOR
+         * ELIMINAR IMAGEN
          * ================================================= */
 
-        function clearFixedImage() {
+        function removeImage() {
 
           /*
-           * Quitar cualquier clase visible
+           * Ocultar
            */
 
-          fixedContainer.classList.remove(
+          container.classList.remove(
             "show"
           );
 
 
           /*
-           * Quitar imagen
+           * Eliminar completamente
+           * la imagen.
            */
 
-          fixedImage.removeAttribute(
+          image.src = "";
+
+          image.removeAttribute(
             "src"
           );
 
 
+          image.alt = "";
+
+
           /*
-           * Quitar texto alternativo
+           * Ocultar botón.
            */
 
-          fixedImage.removeAttribute(
-            "alt"
+          closeButton.classList.remove(
+            "visible"
           );
 
 
           /*
-           * Por seguridad, limpiar
-           * cualquier contenido adicional
+           * Ocultar tarjeta.
            */
 
-          while (
-            fixedContainer.children.length > 1
-          ) {
+          if (storyCard) {
 
-            fixedContainer.removeChild(
-              fixedContainer.lastElementChild
+            storyCard.classList.add(
+              "hidden"
             );
 
           }
+
+
+          /*
+           * Eliminar referencia.
+           */
+
+          currentTarget = null;
+
+
+          /*
+           * Liberar bloqueo.
+           */
+
+          locked = false;
+
+
+          console.log(
+            "Imagen anterior eliminada."
+          );
 
         }
 
 
 
         /* =================================================
-         * FUNCIÓN:
-         * MOSTRAR UNA SOLA IMAGEN
+         * MOSTRAR IMAGEN
          * ================================================= */
 
-        function showFixedImage(
+        function showImage(
           target
         ) {
-
-
-          /*
-           * Obtener persona
-           */
 
           const personId =
             target.getAttribute(
@@ -597,35 +455,22 @@
             );
 
 
-          console.log(
-            "Mostrando:",
-            personId
-          );
-
-
           /*
-           * Obtener imagen
+           * Obtener imagen.
            */
 
-          const imageSrc =
-            targetImages[
-              personId
-            ];
+          const src =
+            images[personId];
 
 
-          /*
-           * Si no existe,
-           * desbloquear
-           */
+          if (!src) {
 
-          if (!imageSrc) {
-
-            console.log(
-              "No existe imagen para:",
+            console.warn(
+              "No existe imagen:",
               personId
             );
 
-            isLocked = false;
+            locked = false;
 
             currentTarget = null;
 
@@ -636,68 +481,80 @@
 
 
           /*
-           * =============================================
-           * PRIMERO LIMPIAMOS CUALQUIER IMAGEN
-           * ANTERIOR
-           * =============================================
+           * SEGURIDAD:
+           *
+           * Primero eliminamos cualquier
+           * imagen que pudiera existir.
            */
 
-          clearFixedImage();
-
-
-
-          /*
-           * =============================================
-           * ASIGNAMOS SOLAMENTE LA NUEVA IMAGEN
-           * =============================================
-           */
-
-          fixedImage.src =
-            imageSrc;
-
-
-          fixedImage.alt =
-            "Historia de " + personId;
-
-
-
-          /*
-           * =============================================
-           * MOSTRAR IMAGEN
-           * =============================================
-           */
-
-          fixedContainer.classList.add(
+          container.classList.remove(
             "show"
           );
 
 
-
-          /*
-           * =============================================
-           * MOSTRAR X
-           * =============================================
-           */
-
-          closeButton.classList.add(
-            "visible"
+          image.removeAttribute(
+            "src"
           );
 
 
 
           /*
-           * =============================================
-           * OCULTAR LA IMAGEN CONTROLADA
-           * POR MINDAR
-           * =============================================
+           * Esperar un frame del navegador
+           * para asegurarnos de que la
+           * imagen anterior desapareció.
            */
 
-          target.object3D.visible =
-            false;
+          requestAnimationFrame(
+            function () {
 
 
-          console.log(
-            "Imagen única mostrada correctamente."
+              /*
+               * Colocar NUEVA imagen.
+               */
+
+              image.src = src;
+
+
+              image.alt =
+                "Historia de " +
+                personId;
+
+
+
+              /*
+               * Mostrar.
+               */
+
+              container.classList.add(
+                "show"
+              );
+
+
+              /*
+               * Mostrar X.
+               */
+
+              closeButton.classList.add(
+                "visible"
+              );
+
+
+              /*
+               * Asegurarnos de que el
+               * target AR no tenga contenido
+               * visible.
+               */
+
+              target.object3D.visible =
+                false;
+
+
+              console.log(
+                "Mostrando únicamente:",
+                personId
+              );
+
+            }
           );
 
         }
@@ -705,13 +562,14 @@
 
 
         /* =================================================
-         * REGISTRAR TARGETS
+         * TODOS LOS TARGETS
          * ================================================= */
 
         const targets =
           document.querySelectorAll(
-            "[mindar-image-target]"
+            "a-entity[mindar-image-target]"
           );
+
 
 
         targets.forEach(
@@ -734,21 +592,18 @@
 
 
                 console.log(
-                  "Target encontrado:",
+                  "Detectado:",
                   personId
                 );
 
 
 
                 /*
-                 * =========================================
                  * TARGET 0
-                 * =========================================
                  *
-                 * Es el modelo 3D.
+                 * Es el mural 3D.
                  *
-                 * Lo dejamos funcionando
-                 * exactamente como estaba.
+                 * No lo modificamos.
                  */
 
                 if (
@@ -762,20 +617,15 @@
 
 
                 /*
-                 * =========================================
-                 * SI YA EXISTE UNA IMAGEN
-                 * =========================================
-                 *
-                 * No permitimos que otro marcador
-                 * cree una segunda imagen.
-                 *
-                 * Primero debe presionarse X.
+                 * Si ya existe una imagen,
+                 * ignorar completamente
+                 * el nuevo marcador.
                  */
 
-                if (isLocked) {
+                if (locked) {
 
                   console.log(
-                    "Ya existe una imagen visible."
+                    "Hay una imagen activa. Presiona X primero."
                   );
 
                   return;
@@ -785,12 +635,10 @@
 
 
                 /*
-                 * =========================================
-                 * BLOQUEAR
-                 * =========================================
+                 * Bloquear.
                  */
 
-                isLocked = true;
+                locked = true;
 
 
                 currentTarget =
@@ -799,35 +647,29 @@
 
 
                 /*
-                 * =========================================
-                 * ESPERAR CONFIRMACIÓN
-                 * =========================================
+                 * Esperar un momento
+                 * para que MindAR confirme
+                 * el marcador.
                  */
 
                 setTimeout(
                   function () {
 
 
-                    /*
-                     * Verificar que todavía
-                     * sea el target actual.
-                     */
-
                     if (
                       currentTarget ===
                       target &&
-                      isLocked
+                      locked
                     ) {
 
-
-                      showFixedImage(
+                      showImage(
                         target
                       );
 
                     }
 
                   },
-                  400
+                  300
                 );
 
               }
@@ -845,7 +687,7 @@
 
 
                 console.log(
-                  "Target perdido:",
+                  "Marcador perdido:",
                   target.getAttribute(
                     "data-person-id"
                   )
@@ -853,9 +695,11 @@
 
 
                 /*
+                 * IMPORTANTE:
+                 *
                  * NO eliminamos la imagen.
                  *
-                 * Se queda fija hasta presionar X.
+                 * Se queda fija.
                  */
 
               }
@@ -876,37 +720,20 @@
 
 
             console.log(
-              "Cerrando imagen actual..."
+              "Botón X presionado."
             );
 
 
-
             /*
-             * =============================================
-             * OCULTAR X INMEDIATAMENTE
-             * =============================================
+             * Eliminar imagen.
              */
 
-            closeButton.classList.remove(
-              "visible"
-            );
-
+            removeImage();
 
 
             /*
-             * =============================================
-             * ELIMINAR IMAGEN
-             * =============================================
-             */
-
-            clearFixedImage();
-
-
-
-            /*
-             * =============================================
-             * RESTAURAR TARGET
-             * =============================================
+             * Si había target,
+             * restaurarlo.
              */
 
             if (
@@ -919,39 +746,32 @@
             }
 
 
-
             /*
-             * =============================================
-             * LIMPIAR REFERENCIA
-             * =============================================
+             * Limpiar referencia.
              */
 
             currentTarget =
               null;
 
 
-
             /*
-             * =============================================
-             * DESBLOQUEAR
-             * =============================================
+             * IMPORTANTE:
+             *
+             * Permitimos nuevamente
+             * escanear.
              */
 
-            isLocked =
+            locked =
               false;
 
 
-
             console.log(
-              "Imagen eliminada."
-            );
-
-            console.log(
-              "Escaneo nuevamente disponible."
+              "Listo para escanear otro marcador."
             );
 
           }
         );
+
 
       }
     );
