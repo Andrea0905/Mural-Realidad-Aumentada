@@ -14,19 +14,32 @@
 
   <link rel="stylesheet" href="./css/styles.css">
 
-  <!-- A-Frame -->
+
+  <!-- ================================================= -->
+  <!-- A-FRAME -->
+  <!-- ================================================= -->
+
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-  <!-- A-Frame Extras -->
+
+  <!-- ================================================= -->
+  <!-- A-FRAME EXTRAS -->
+  <!-- ================================================= -->
+
   <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
 
-  <!-- MindAR -->
+
+  <!-- ================================================= -->
+  <!-- MINDAR -->
+  <!-- ================================================= -->
+
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 </head>
 
 
 <body>
+
 
   <!-- ================================================= -->
   <!-- TARJETA DE INFORMACIÓN -->
@@ -57,8 +70,9 @@
   </section>
 
 
+
   <!-- ================================================= -->
-  <!-- IMAGEN FIJA -->
+  <!-- CONTENEDOR DE LA IMAGEN FIJA -->
   <!-- ================================================= -->
 
   <div
@@ -69,9 +83,11 @@
       id="fixed-image"
       src=""
       alt=""
+      draggable="false"
     >
 
   </div>
+
 
 
   <!-- ================================================= -->
@@ -81,14 +97,15 @@
   <button
     id="close-ar"
     type="button"
-    aria-label="Cerrar"
+    aria-label="Cerrar imagen"
   >
     ✕
   </button>
 
 
+
   <!-- ================================================= -->
-  <!-- ESCENA AR -->
+  <!-- ESCENA DE REALIDAD AUMENTADA -->
   <!-- ================================================= -->
 
   <a-scene
@@ -117,6 +134,7 @@
   >
 
 
+
     <!-- ================================================= -->
     <!-- RECURSOS -->
     <!-- ================================================= -->
@@ -125,7 +143,7 @@
 
 
       <!-- =============================================== -->
-      <!-- IMÁGENES -->
+      <!-- IMAGEN DE DENISSE -->
       <!-- =============================================== -->
 
       <img
@@ -133,25 +151,50 @@
         src="./assets/images/denisse.png"
       >
 
+
+      <!-- =============================================== -->
+      <!-- IMAGEN DE ESTHER -->
+      <!-- =============================================== -->
+
       <img
         id="overlay-esther"
         src="./assets/images/esther-06.png"
       >
+
+
+      <!-- =============================================== -->
+      <!-- IMAGEN DE RUBÍ -->
+      <!-- =============================================== -->
 
       <img
         id="overlay-rubi"
         src="./assets/images/rubí.png"
       >
 
+
+      <!-- =============================================== -->
+      <!-- IMAGEN DE MARÍA -->
+      <!-- =============================================== -->
+
       <img
         id="overlay-maria"
         src="./assets/images/maria.png"
       >
 
+
+      <!-- =============================================== -->
+      <!-- IMAGEN DE PATRICIA -->
+      <!-- =============================================== -->
+
       <img
         id="overlay-patricia"
         src="./assets/images/patricia.png"
       >
+
+
+      <!-- =============================================== -->
+      <!-- IMAGEN DE MÓNICA -->
+      <!-- =============================================== -->
 
       <img
         id="overlay-monica"
@@ -168,7 +211,9 @@
         src="./assets/models/mural.glb"
       ></a-asset-item>
 
+
     </a-assets>
+
 
 
     <!-- ================================================= -->
@@ -179,6 +224,7 @@
       position="0 0 0"
       look-controls="enabled: false"
     ></a-camera>
+
 
 
     <!-- ================================================= -->
@@ -210,6 +256,7 @@
     </a-entity>
 
 
+
     <!-- ================================================= -->
     <!-- TARGET 1 -->
     <!-- DENISSE -->
@@ -237,6 +284,7 @@
       ></a-image>
 
     </a-entity>
+
 
 
     <!-- ================================================= -->
@@ -268,6 +316,7 @@
     </a-entity>
 
 
+
     <!-- ================================================= -->
     <!-- TARGET 3 -->
     <!-- RUBÍ -->
@@ -295,6 +344,7 @@
       ></a-image>
 
     </a-entity>
+
 
 
     <!-- ================================================= -->
@@ -326,6 +376,7 @@
     </a-entity>
 
 
+
     <!-- ================================================= -->
     <!-- TARGET 5 -->
     <!-- PATRICIA -->
@@ -353,6 +404,7 @@
       ></a-image>
 
     </a-entity>
+
 
 
     <!-- ================================================= -->
@@ -387,8 +439,9 @@
   </a-scene>
 
 
+
   <!-- ================================================= -->
-  <!-- ARCHIVOS DE TU PROYECTO -->
+  <!-- ARCHIVOS DEL PROYECTO -->
   <!-- ================================================= -->
 
   <script src="./js/audio.js"></script>
@@ -398,8 +451,9 @@
   <script src="./js/ar.js"></script>
 
 
+
   <!-- ================================================= -->
-  <!-- SISTEMA DE IMAGEN FIJA -->
+  <!-- CONTROL DE IMÁGENES FIJAS -->
   <!-- ================================================= -->
 
   <script>
@@ -408,21 +462,22 @@
       "DOMContentLoaded",
       function () {
 
-        /*
-         * ================================================
+
+        /* =================================================
          * ELEMENTOS
-         * ================================================
-         */
+         * ================================================= */
 
         const fixedContainer =
           document.getElementById(
             "fixed-image-container"
           );
 
+
         const fixedImage =
           document.getElementById(
             "fixed-image"
           );
+
 
         const closeButton =
           document.getElementById(
@@ -430,22 +485,20 @@
           );
 
 
-        /*
-         * ================================================
+
+        /* =================================================
          * VARIABLES
-         * ================================================
-         */
+         * ================================================= */
 
         let currentTarget = null;
 
         let isLocked = false;
 
 
-        /*
-         * ================================================
-         * IMÁGENES DE CADA TARGET
-         * ================================================
-         */
+
+        /* =================================================
+         * IMÁGENES
+         * ================================================= */
 
         const targetImages = {
 
@@ -470,13 +523,73 @@
         };
 
 
-        /*
-         * ================================================
-         * MOSTRAR IMAGEN FIJA
-         * ================================================
-         */
 
-        function showFixedImage(target) {
+        /* =================================================
+         * FUNCIÓN:
+         * LIMPIAR COMPLETAMENTE LA IMAGEN ANTERIOR
+         * ================================================= */
+
+        function clearFixedImage() {
+
+          /*
+           * Quitar cualquier clase visible
+           */
+
+          fixedContainer.classList.remove(
+            "show"
+          );
+
+
+          /*
+           * Quitar imagen
+           */
+
+          fixedImage.removeAttribute(
+            "src"
+          );
+
+
+          /*
+           * Quitar texto alternativo
+           */
+
+          fixedImage.removeAttribute(
+            "alt"
+          );
+
+
+          /*
+           * Por seguridad, limpiar
+           * cualquier contenido adicional
+           */
+
+          while (
+            fixedContainer.children.length > 1
+          ) {
+
+            fixedContainer.removeChild(
+              fixedContainer.lastElementChild
+            );
+
+          }
+
+        }
+
+
+
+        /* =================================================
+         * FUNCIÓN:
+         * MOSTRAR UNA SOLA IMAGEN
+         * ================================================= */
+
+        function showFixedImage(
+          target
+        ) {
+
+
+          /*
+           * Obtener persona
+           */
 
           const personId =
             target.getAttribute(
@@ -484,35 +597,58 @@
             );
 
 
+          console.log(
+            "Mostrando:",
+            personId
+          );
+
+
           /*
-           * Obtener la imagen correspondiente
+           * Obtener imagen
            */
 
           const imageSrc =
-            targetImages[personId];
+            targetImages[
+              personId
+            ];
 
 
           /*
-           * Comprobar que exista
+           * Si no existe,
+           * desbloquear
            */
 
           if (!imageSrc) {
 
             console.log(
-              "No se encontró imagen para:",
+              "No existe imagen para:",
               personId
             );
 
             isLocked = false;
+
+            currentTarget = null;
 
             return;
 
           }
 
 
+
           /*
            * =============================================
-           * COLOCAR IMAGEN
+           * PRIMERO LIMPIAMOS CUALQUIER IMAGEN
+           * ANTERIOR
+           * =============================================
+           */
+
+          clearFixedImage();
+
+
+
+          /*
+           * =============================================
+           * ASIGNAMOS SOLAMENTE LA NUEVA IMAGEN
            * =============================================
            */
 
@@ -522,6 +658,7 @@
 
           fixedImage.alt =
             "Historia de " + personId;
+
 
 
           /*
@@ -535,6 +672,7 @@
           );
 
 
+
           /*
            * =============================================
            * MOSTRAR X
@@ -546,9 +684,11 @@
           );
 
 
+
           /*
            * =============================================
-           * OCULTAR TARGET DE MINDAR
+           * OCULTAR LA IMAGEN CONTROLADA
+           * POR MINDAR
            * =============================================
            */
 
@@ -557,18 +697,16 @@
 
 
           console.log(
-            "Imagen fija mostrada:",
-            personId
+            "Imagen única mostrada correctamente."
           );
 
         }
 
 
-        /*
-         * ================================================
-         * REGISTRAR TODOS LOS TARGETS
-         * ================================================
-         */
+
+        /* =================================================
+         * REGISTRAR TARGETS
+         * ================================================= */
 
         const targets =
           document.querySelectorAll(
@@ -580,11 +718,9 @@
           function (target) {
 
 
-            /*
-             * ============================================
+            /* =============================================
              * TARGET ENCONTRADO
-             * ============================================
-             */
+             * ============================================= */
 
             target.addEventListener(
               "targetFound",
@@ -603,10 +739,16 @@
                 );
 
 
+
                 /*
-                 * El target 0 es el mural 3D.
+                 * =========================================
+                 * TARGET 0
+                 * =========================================
                  *
-                 * No lo procesamos como imagen.
+                 * Es el modelo 3D.
+                 *
+                 * Lo dejamos funcionando
+                 * exactamente como estaba.
                  */
 
                 if (
@@ -618,36 +760,48 @@
                 }
 
 
+
                 /*
-                 * Si ya tenemos una imagen,
-                 * ignoramos otros targets.
+                 * =========================================
+                 * SI YA EXISTE UNA IMAGEN
+                 * =========================================
+                 *
+                 * No permitimos que otro marcador
+                 * cree una segunda imagen.
+                 *
+                 * Primero debe presionarse X.
                  */
 
                 if (isLocked) {
+
+                  console.log(
+                    "Ya existe una imagen visible."
+                  );
 
                   return;
 
                 }
 
 
+
                 /*
-                 * Bloquear
+                 * =========================================
+                 * BLOQUEAR
+                 * =========================================
                  */
 
                 isLocked = true;
 
 
-                /*
-                 * Guardar target
-                 */
-
                 currentTarget =
                   target;
 
 
+
                 /*
-                 * Esperar un poco para
-                 * confirmar detección
+                 * =========================================
+                 * ESPERAR CONFIRMACIÓN
+                 * =========================================
                  */
 
                 setTimeout(
@@ -655,14 +809,16 @@
 
 
                     /*
-                     * Comprobar que sigue
-                     * siendo el target actual
+                     * Verificar que todavía
+                     * sea el target actual.
                      */
 
                     if (
                       currentTarget ===
-                      target
+                      target &&
+                      isLocked
                     ) {
+
 
                       showFixedImage(
                         target
@@ -678,15 +834,15 @@
             );
 
 
-            /*
-             * ============================================
+
+            /* =============================================
              * TARGET PERDIDO
-             * ============================================
-             */
+             * ============================================= */
 
             target.addEventListener(
               "targetLost",
               function () {
+
 
                 console.log(
                   "Target perdido:",
@@ -697,10 +853,9 @@
 
 
                 /*
-                 * NO hacemos nada.
+                 * NO eliminamos la imagen.
                  *
-                 * La imagen HTML permanece
-                 * completamente fija.
+                 * Se queda fija hasta presionar X.
                  */
 
               }
@@ -710,11 +865,10 @@
         );
 
 
-        /*
-         * ================================================
+
+        /* =================================================
          * BOTÓN X
-         * ================================================
-         */
+         * ================================================= */
 
         closeButton.addEventListener(
           "click",
@@ -722,35 +876,15 @@
 
 
             console.log(
-              "Cerrando imagen..."
+              "Cerrando imagen actual..."
             );
 
 
-            /*
-             * ==========================================
-             * OCULTAR IMAGEN
-             * ==========================================
-             */
-
-            fixedContainer.classList.remove(
-              "show"
-            );
-
 
             /*
-             * ==========================================
-             * LIMPIAR SRC
-             * ==========================================
-             */
-
-            fixedImage.src =
-              "";
-
-
-            /*
-             * ==========================================
-             * OCULTAR X
-             * ==========================================
+             * =============================================
+             * OCULTAR X INMEDIATAMENTE
+             * =============================================
              */
 
             closeButton.classList.remove(
@@ -758,10 +892,21 @@
             );
 
 
+
             /*
-             * ==========================================
+             * =============================================
+             * ELIMINAR IMAGEN
+             * =============================================
+             */
+
+            clearFixedImage();
+
+
+
+            /*
+             * =============================================
              * RESTAURAR TARGET
-             * ==========================================
+             * =============================================
              */
 
             if (
@@ -774,28 +919,35 @@
             }
 
 
+
             /*
-             * ==========================================
-             * LIMPIAR TARGET
-             * ==========================================
+             * =============================================
+             * LIMPIAR REFERENCIA
+             * =============================================
              */
 
             currentTarget =
               null;
 
 
+
             /*
-             * ==========================================
-             * VOLVER A PERMITIR ESCANEO
-             * ==========================================
+             * =============================================
+             * DESBLOQUEAR
+             * =============================================
              */
 
             isLocked =
               false;
 
 
+
             console.log(
-              "Escaneo nuevamente activado."
+              "Imagen eliminada."
+            );
+
+            console.log(
+              "Escaneo nuevamente disponible."
             );
 
           }

@@ -62,75 +62,143 @@ body {
 .hidden {
   display: none;
 }
-
 #fixed-image-container {
+
   position: fixed;
 
-  top: 50%;
   left: 50%;
+  top: 50%;
+
+  width: min(82vw, 360px);
+
+  max-height: 78vh;
 
   transform: translate(-50%, -50%);
 
-  width: 70vw;
-  max-width: 350px;
-
   display: none;
+
+  margin: 0;
+
+  padding: 0;
 
   z-index: 99990;
 
+  box-sizing: border-box;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: hidden;
+
   pointer-events: none;
+
 }
+
 
 #fixed-image-container.show {
-  display: block;
+
+  display: flex;
+
 }
 
+
 #fixed-image {
+
   display: block;
 
   width: 100%;
+
+  max-width: 100%;
+
+  max-height: 78vh;
+
   height: auto;
+
+  margin: 0;
+
+  padding: 0;
 
   object-fit: contain;
 
+  object-position: center center;
+
+  transform: none;
+
+  rotate: none;
+
   pointer-events: none;
+
+  user-select: none;
+
+  -webkit-user-drag: none;
+
 }
 
+
+
+/* ================================================= */
+/* BOTÓN X */
+/* ================================================= */
+
 #close-ar {
+
   position: fixed;
 
   top: 20px;
+
   right: 20px;
 
   width: 52px;
+
   height: 52px;
+
+  margin: 0;
 
   padding: 0;
 
   border: none;
+
   border-radius: 50%;
 
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.80);
 
   color: white;
 
   font-size: 28px;
+
+  font-family: Arial, sans-serif;
+
   font-weight: bold;
+
+  line-height: 52px;
+
+  text-align: center;
 
   display: none;
 
   align-items: center;
+
   justify-content: center;
 
   z-index: 100000;
 
   cursor: pointer;
+
+  transform: none;
+
 }
+
 
 #close-ar.visible {
+
   display: flex;
+
 }
 
+
 #close-ar:active {
-  transform: scale(0.9);
+
+  transform: scale(0.90);
+
 }
