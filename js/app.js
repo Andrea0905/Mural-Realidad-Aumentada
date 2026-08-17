@@ -1,14 +1,18 @@
 const storyCard =
   document.querySelector("#story-card");
 
-const storyName =
-  document.querySelector("#story-name");
-
 const storyQuote =
   document.querySelector("#story-quote");
 
 
 let people = {};
+
+
+// ============================================
+// ESTADO DEL PANEL
+// ============================================
+
+let panelLocked = false;
 
 
 // ============================================
@@ -61,8 +65,25 @@ window.addEventListener(
   "person-found",
   (event) => {
 
+    /*
+     * SI YA HAY UNA HISTORIA ABIERTA,
+     * NO CAMBIAMOS EL PANEL.
+     */
+
+    if (panelLocked) {
+
+      console.log(
+        "Panel bloqueado. No se cambia la información."
+      );
+
+      return;
+
+    }
+
+
     const personId =
       event.detail.personId;
+
 
     const person =
       people[personId];
@@ -81,11 +102,15 @@ window.addEventListener(
 
 
     // ========================================
-    // MOSTRAR INFORMACIÓN
+    // BLOQUEAR PANEL
     // ========================================
 
-    storyName.textContent =
-      person.name;
+    panelLocked = true;
+
+
+    // ========================================
+    // MOSTRAR FRASE
+    // ========================================
 
     storyQuote.textContent =
       person.quote;
@@ -110,8 +135,8 @@ window.addEventListener(
 
 
     console.log(
-      "Panel mostrado:",
-      person.name
+      "Panel bloqueado para:",
+      personId
     );
 
   }
@@ -121,22 +146,49 @@ window.addEventListener(
 // ============================================
 // TARGET PERDIDO
 // ============================================
-//
-// IMPORTANTE:
-//
-// YA NO OCULTAMOS EL PANEL.
-//
-// El panel permanecerá fijo hasta
-// presionar el botón X.
-//
 
 window.addEventListener(
   "person-lost",
   () => {
 
+    /*
+     * NO HACEMOS NADA.
+     *
+     * El panel permanece fijo.
+     */
+
     console.log(
-      "Marcador perdido. El panel permanece fijo."
+      "Marcador perdido. Panel permanece fijo."
     );
 
   }
 );
+
+
+// ============================================
+// FUNCIÓN PARA CERRAR EL PANEL
+// ============================================
+
+function unlockStoryPanel() {
+
+  panelLocked = false;
+
+  storyCard.classList.add(
+    "hidden"
+  );
+
+  storyQuote.textContent = "";
+
+  console.log(
+    "Panel desbloqueado."
+  );
+
+}
+
+
+// ============================================
+// HACER DISPONIBLE GLOBALMENTE
+// ============================================
+
+window.unlockStoryPanel =
+  unlockStoryPanel;
