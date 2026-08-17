@@ -64,8 +64,7 @@ body {
 }
 #close-ar {
   position: fixed;
-
-  top: 10px;
+  top: 20px;
   right: 20px;
 
   width: 50px;
@@ -74,32 +73,32 @@ body {
   border: none;
   border-radius: 50%;
 
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.8);
   color: white;
 
   font-size: 28px;
   font-weight: bold;
 
-  display: flex;
+  display: none;
 
   align-items: center;
   justify-content: center;
 
-  z-index: 99999;
+  z-index: 999999;
 
   cursor: pointer;
 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 #close-ar.visible {
-  opacity: 1;
-  visibility: visible;
+  display: flex;
 }
+
+#close-ar:active {
+  transform: scale(0.90);
+}
+
 
 #close-ar:active {
   transform: scale(0.9);
