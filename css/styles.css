@@ -18,7 +18,23 @@ body {
 
   color: white;
 }
+#more-button {
+  width: 100%;
 
+  padding: 12px 16px;
+
+  margin-bottom: 10px;
+
+  border: 0;
+
+  border-radius: 12px;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
 .story-card {
   position: fixed;
   z-index: 9999;
