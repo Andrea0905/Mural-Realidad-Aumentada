@@ -55,36 +55,50 @@
   <!-- ================================================= -->
 
   <section
-    id="story-card"
-    class="story-card hidden"
-    aria-live="polite"
+  id="story-card"
+  class="story-card hidden"
+  aria-live="polite"
+>
+
+  <h2 id="story-name"></h2>
+
+  <p id="story-quote"></p>
+
+  <button
+    id="more-button"
+    type="button"
+    style="
+      display: block !important;
+      width: 100%;
+      height: 50px;
+      margin: 10px 0;
+      padding: 10px;
+      background: red;
+      color: white;
+      border: 3px solid yellow;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      position: relative;
+      z-index: 999999;
+    "
   >
+    VER MÁS
+  </button>
 
-    <h2 id="story-name"></h2>
+  <button
+    id="audio-button"
+    type="button"
+  >
+    ▶ Escuchar
+  </button>
 
-    <p id="story-quote"></p>
-    <button
-        id="more-button"
-        type="button"
-      >
-        Ver más
-      </button>
-      
-    <button
-      id="audio-button"
-      type="button"
-    >
-      ▶ Escuchar
-    </button>
+  <audio
+    id="story-audio"
+    preload="none"
+  ></audio>
 
-    <audio
-      id="story-audio"
-      preload="none"
-    ></audio>
-
-  </section>
-
-
+</section>
 
   <!-- ================================================= -->
   <!-- IMAGEN FIJA -->
@@ -101,8 +115,6 @@
 
   </div>
 
-
-
   <!-- ================================================= -->
   <!-- BOTÓN X -->
   <!-- ================================================= -->
@@ -114,8 +126,6 @@
   >
     ✕
   </button>
-
-
 
   <!-- ================================================= -->
   <!-- ESCENA AR -->
@@ -133,7 +143,6 @@
       uiScanning: no;
       missTolerance: 30;
     "
-    
     color-space="sRGB"
 
     renderer="
@@ -143,14 +152,11 @@
     "
     device-orientation-permission-ui="enabled: false"
   >
-
-
     <!-- ================================================= -->
     <!-- RECURSOS -->
     <!-- ================================================= -->
 
     <a-assets timeout="15000">
-
 
       <!-- IMÁGENES -->
       
@@ -481,9 +487,6 @@
             return;
 
           }
-
-
-
           /*
            * SEGURIDAD:
            *
