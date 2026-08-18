@@ -200,11 +200,11 @@ a-scene {
 .fixed-image-container {
   position: absolute;
   z-index: 2;
-  top: 40%;
+  top: 50%;
   left: 50%;
   display: flex;
-  width: min(82vw, 360px);
-  max-height: 55dvh;
+  width: min(90vw, 450px);
+  max-height: 82dvh;
   align-items: center;
   justify-content: center;
   transform: translate(-50%, -60%);
@@ -217,7 +217,7 @@ a-scene {
   width: 100%;
   height: auto;
   max-width: 100%;
-  max-height: 55dvh;
+  max-height: 82vh;
   object-fit: contain;
   object-position: center;
   pointer-events: none;
