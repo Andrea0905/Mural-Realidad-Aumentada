@@ -200,14 +200,14 @@ a-scene {
 .fixed-image-container {
   position: absolute;
   z-index: 2;
-  top: 47%;
+  top: 45%;
   left: 50%;
   display: flex;
   width: min(87vw, 375px);
   max-height: 60vh;
   align-items: center;
   justify-content: center;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -55%);
   overflow: hidden;
   pointer-events: none;
 }
@@ -338,7 +338,7 @@ a-scene .a-enter-vr {
 
 @media (max-height: 650px) {
   .fixed-image-container {
-    top: 43%;
+    top: 40%;
     max-height: 43dvh;
   }
 
