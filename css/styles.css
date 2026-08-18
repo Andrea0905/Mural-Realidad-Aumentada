@@ -203,7 +203,7 @@ a-scene {
   top: 40%;
   left: 50%;
   display: flex;
-  width: min(82vw, 360px);
+  width: min(85vw, 380px);
   max-height: 55dvh;
   align-items: center;
   justify-content: center;
