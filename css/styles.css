@@ -207,7 +207,7 @@ a-scene {
   max-height: 65vh;
   align-items: center;
   justify-content: center;
-  transform: translate(-50%, -65%);
+  transform: translate(-50%, -68%);
   overflow: hidden;
   pointer-events: none;
 }
