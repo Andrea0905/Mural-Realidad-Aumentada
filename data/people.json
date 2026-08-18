@@ -1,9 +1,0 @@
-[
-  {"id":"titulo","targetIndex":0,"name":"Historias que Inspiran","quote":"Descubre las historias de las protagonistas.","image":"","audio":""},
-  {"id":"denisse","targetIndex":1,"name":"","quote":"Aquí irá una breve frase de Denisse.","image":"./assets/images/denisse.png","audio":"./assets/audio/denisse.mp3"},
-  {"id":"esther","targetIndex":2,"name":"","quote":"Aquí irá una breve frasede Esther.","image":"./assets/images/esther-06.png","audio":"./assets/audio/esther.mp3"},
-  {"id":"rubi","targetIndex":3,"name":"","quote":"Aquí irá una breve frasede Rubí.","image":"./assets/images/rubí.png","audio":"./assets/audio/rubi.mp3"},
-  {"id":"maria","targetIndex":4,"name":"","quote":"Aquí irá una breve frasede María.","image":"./assets/images/maria.png","audio":"./assets/audio/maria.mp3"},
-  {"id":"patricia","targetIndex":5,"name":"","quote":"Aquí irá una breve frasede Patricia.","image":"./assets/images/patricia.png","audio":"./assets/audio/patricia.mp3"},
-  {"id":"monica","targetIndex":6,"name":"","quote":"Aquí irá una breve frasede Mónica.","image":"./assets/images/monica.png","audio":"./assets/audio/monica.mp3"}
-]
