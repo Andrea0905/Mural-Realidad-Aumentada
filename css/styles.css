@@ -338,7 +338,7 @@ a-scene .a-enter-vr {
 
 @media (max-height: 650px) {
   .fixed-image-container {
-    top: 40%;
+    top: 35%;
     max-height: 43dvh;
   }
 
