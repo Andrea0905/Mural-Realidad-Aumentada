@@ -200,7 +200,7 @@ a-scene {
 .fixed-image-container {
   position: absolute;
   z-index: 2;
-  top: 50%;
+  top: 55%;
   left: 50%;
   display: flex;
   width: min(87vw, 375px);
@@ -314,7 +314,7 @@ a-scene {
     max-height: 74dvh;
   }
 
-  .fixed-image { max-height: 74dvh; }
+  .fixed-image { max-height: 43dvh; }
 
   .story-card {
     right: 24px;
@@ -338,7 +338,7 @@ a-scene .a-enter-vr {
 
 @media (max-height: 650px) {
   .fixed-image-container {
-    top: 35%;
+    top: 52%;
     max-height: 43dvh;
   }
 
