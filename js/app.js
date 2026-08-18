@@ -19,7 +19,7 @@ const scanAgainButton = document.querySelector("#scan-again-button");
 let people = {
   denisse: {
     id: "denisse",
-    name: "Dra. Denisse Barrientos Argüelles",
+    name: "",
     quote: "Aquí irá una breve frase de Denisse.",
     image: "./assets/images/denisse.png",
     audio: "./assets/audio/denisse.mp3",
@@ -27,7 +27,7 @@ let people = {
   },
   esther: {
     id: "esther",
-    name: "Esther",
+    name: "",
     quote: "Aquí irá una breve frase de Esther.",
     image: "./assets/images/esther-06.png",
     audio: "./assets/audio/esther.mp3",
@@ -35,7 +35,7 @@ let people = {
   },
   rubi: {
     id: "rubi",
-    name: "Rubí",
+    name: "",
     quote: "Aquí irá una breve frase de Rubí.",
     image: "./assets/images/rubí.png",
     audio: "./assets/audio/rubi.mp3",
@@ -43,7 +43,7 @@ let people = {
   },
   maria: {
     id: "maria",
-    name: "María",
+    name: "",
     quote: "Aquí irá una breve frase de María.",
     image: "./assets/images/maria.png",
     audio: "./assets/audio/maria.mp3",
@@ -51,7 +51,7 @@ let people = {
   },
   patricia: {
     id: "patricia",
-    name: "Patricia",
+    name: "",
     quote: "Aquí irá una breve frase de Patricia.",
     image: "./assets/images/patricia.png",
     audio: "./assets/audio/patricia.mp3",
@@ -59,7 +59,7 @@ let people = {
   },
   monica: {
     id: "monica",
-    name: "Mónica",
+    name: "",
     quote: "Aquí irá una breve frase de Mónica.",
     image: "./assets/images/monica.png",
     audio: "./assets/audio/monica.mp3",
