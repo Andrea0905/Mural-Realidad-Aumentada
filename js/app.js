@@ -26,45 +26,49 @@ let people = {
     learnMoreUrl: "./historia.html?id=denisse"
   },
   esther: {
-    id: "esther",
-    name: "Esther",
-    quote: "Aquí irá una frase breve de Esther.",
-    image: "./assets/images/esther-06.png",
-    audio: "",
-    learnMoreUrl: "./historia.html?id=esther"
-  },
-  rubi: {
-    id: "rubi",
-    name: "Rubí",
-    quote: "Aquí irá una frase breve de Rubí.",
-    image: "./assets/images/rubí.png",
-    audio: "",
-    learnMoreUrl: "./historia.html?id=rubi"
-  },
-  maria: {
-    id: "maria",
-    name: "María",
-    quote: "Aquí irá una frase breve de María.",
-    image: "./assets/images/maria.png",
-    audio: "",
-    learnMoreUrl: "./historia.html?id=maria"
-  },
-  patricia: {
-    id: "patricia",
-    name: "Patricia",
-    quote: "Aquí irá una frase breve de Patricia.",
-    image: "./assets/images/patricia.png",
-    audio: "",
-    learnMoreUrl: "./historia.html?id=patricia"
-  },
-  monica: {
-    id: "monica",
-    name: "Mónica",
-    quote: "Aquí irá una frase breve de Mónica.",
-    image: "./assets/images/monica.png",
-    audio: "",
-    learnMoreUrl: "./historia.html?id=monica"
-  }
+  id: "esther",
+  name: "Esther",
+  quote: "Aquí irá una frase breve de Esther.",
+  image: "./assets/images/esther-06.png",
+  audio: "./assets/audio/Esther.mp3",
+  learnMoreUrl: "./historia.html?id=esther"
+},
+
+rubi: {
+  id: "rubi",
+  name: "Rubí",
+  quote: "Aquí irá una frase breve de Rubí.",
+  image: "./assets/images/rubí.png",
+  audio: "./assets/audio/Rubí.mp3",
+  learnMoreUrl: "./historia.html?id=rubi"
+},
+
+maria: {
+  id: "maria",
+  name: "María",
+  quote: "Aquí irá una frase breve de María.",
+  image: "./assets/images/maria.png",
+  audio: "./assets/audio/María.mp3",
+  learnMoreUrl: "./historia.html?id=maria"
+},
+
+patricia: {
+  id: "patricia",
+  name: "Patricia",
+  quote: "Aquí irá una frase breve de Patricia.",
+  image: "./assets/images/patricia.png",
+  audio: "./assets/audio/Patricia.mp3",
+  learnMoreUrl: "./historia.html?id=patricia"
+},
+
+monica: {
+  id: "monica",
+  name: "Mónica",
+  quote: "Aquí irá una frase breve de Mónica.",
+  image: "./assets/images/monica.png",
+  audio: "./assets/audio/Monica.mp3",
+  learnMoreUrl: "./historia.html?id=monica"
+}
 };
 
 let activeTargetId = null;
