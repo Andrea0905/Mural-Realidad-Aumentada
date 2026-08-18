@@ -32,7 +32,7 @@
     "name": "Rubí",
     "quote": "Aquí irá una frase breve de Rubí.",
     "image": "./assets/images/rubí.png",
-    "audio": "./assets/audio/Rubí.mp3",
+    "audio": "./assets/audio/Rubi.mp3",
     "learnMoreUrl": "./historia.html?id=rubi"
   },
   {
@@ -41,7 +41,7 @@
     "name": "María",
     "quote": "Aquí irá una frase breve de María.",
     "image": "./assets/images/maria.png",
-    "audio": "./assets/audio/María.mp3",
+    "audio": "./assets/audio/Maria.mp3",
     "learnMoreUrl": "./historia.html?id=maria"
   },
   {

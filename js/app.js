@@ -46,7 +46,7 @@ let people = {
     name: "María",
     quote: "Aquí irá una frase breve de María.",
     image: "./assets/images/maria.png",
-    audio: "",
+    audio: "./assets/audio/Maria.mp3",
     learnMoreUrl: "./historia.html?id=maria"
   },
   patricia: {
@@ -54,7 +54,7 @@ let people = {
     name: "Patricia",
     quote: "Aquí irá una frase breve de Patricia.",
     image: "./assets/images/patricia.png",
-    audio: "",
+    audio: "./assets/audio/Patricia.mp3",
     learnMoreUrl: "./historia.html?id=patricia"
   },
   monica: {
@@ -62,7 +62,7 @@ let people = {
     name: "Mónica",
     quote: "Aquí irá una frase breve de Mónica.",
     image: "./assets/images/monica.png",
-    audio: "",
+    audio: "./assets/audio/Monica.mp3",
     learnMoreUrl: "./historia.html?id=monica"
   }
 };
