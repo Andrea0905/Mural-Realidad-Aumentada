@@ -3,80 +3,205 @@ const audioButton = document.querySelector("#audio-button");
 const audioButtonLabel = document.querySelector("#audio-button-label");
 const audioIcon = audioButton.querySelector(".audio-icon");
 
+let currentAudioSource = "";
+
+
+// =====================================================
+// ACTUALIZAR BOTÓN
+// =====================================================
+
 function updateAudioButton(isPlaying) {
-  audioButtonLabel.textContent = isPlaying ? "Pausar audio" : "Reproducir audio";
-  audioIcon.textContent = isPlaying ? "Ⅱ" : "▶";
+
+  if (isPlaying) {
+
+    audioButtonLabel.textContent = "Pausar audio";
+    audioIcon.textContent = "Ⅱ";
+
+  } else {
+
+    audioButtonLabel.textContent = "Reproducir audio";
+    audioIcon.textContent = "▶";
+
+  }
+
 }
 
 
+// =====================================================
+// CARGAR AUDIO
+// =====================================================
+
 function setAudioSource(src) {
 
+  console.log("=================================");
+  console.log("Cargando audio:");
+  console.log(src);
+  console.log("=================================");
+
+
+  // Detener audio anterior
   storyAudio.pause();
 
   storyAudio.currentTime = 0;
 
+
+  currentAudioSource = src || "";
+
+
+  // IMPORTANTE:
+  // El botón NO se oculta.
+  // Siempre debe aparecer para las maestras.
+
+  audioButton.hidden = false;
+
+  audioButton.style.display = "flex";
+
+  audioButton.disabled = false;
+
+
+  updateAudioButton(false);
+
+
   if (!src) {
-    storyAudio.removeAttribute("src");
-    audioButton.hidden = true;
+
+    console.warn(
+      "Esta maestra no tiene una ruta de audio."
+    );
+
     return;
+
   }
 
+
   storyAudio.src = src;
+
   storyAudio.load();
-  audioButton.hidden = false;
-  updateAudioButton(false);
+
+
+  console.log(
+    "Audio preparado:",
+    storyAudio.src
+  );
 
 }
 
 
-audioButton.addEventListener("click", async () => {
+// =====================================================
+// BOTÓN REPRODUCIR
+// =====================================================
 
-  if (storyAudio.paused) {
+audioButton.addEventListener(
+  "click",
+  async () => {
 
-    try {
+    console.log(
+      "Botón de audio presionado."
+    );
 
-      await storyAudio.play();
+    console.log(
+      "Audio actual:",
+      currentAudioSource
+    );
 
-      updateAudioButton(true);
+
+    if (!currentAudioSource) {
+
+      console.warn(
+        "No hay audio configurado para esta maestra."
+      );
+
+      return;
 
     }
 
-    catch (error) {
 
-      console.error(
-        "No se pudo reproducir el audio:",
-        error
-      );
+    if (storyAudio.paused) {
+
+      try {
+
+        await storyAudio.play();
+
+        updateAudioButton(true);
+
+        console.log(
+          "Audio reproduciéndose correctamente."
+        );
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "ERROR AL REPRODUCIR AUDIO:",
+          error
+        );
+
+      }
+
+    }
+
+    else {
+
+      storyAudio.pause();
+
+      updateAudioButton(false);
 
     }
 
   }
+);
 
-  else {
 
-    storyAudio.pause();
+// =====================================================
+// CUANDO TERMINA EL AUDIO
+// =====================================================
+
+storyAudio.addEventListener(
+  "ended",
+  () => {
 
     updateAudioButton(false);
 
   }
+);
 
-});
+
+// =====================================================
+// ERROR AL CARGAR EL AUDIO
+// =====================================================
+
+storyAudio.addEventListener(
+  "error",
+  () => {
+
+    console.error(
+      "NO SE PUDO CARGAR EL AUDIO:"
+    );
+
+    console.error(
+      storyAudio.src
+    );
+
+  }
+);
 
 
-storyAudio.addEventListener("ended", () => {
-
-  updateAudioButton(false);
-
-});
-
+// =====================================================
+// CONTROLADOR GLOBAL
+// =====================================================
 
 window.AudioController = {
 
   setSource: setAudioSource,
+
   stop() {
+
     storyAudio.pause();
+
     storyAudio.currentTime = 0;
+
     updateAudioButton(false);
+
   }
 
 };
