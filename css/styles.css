@@ -9,7 +9,7 @@
   --radio: 22px;
 }
 
-* { box-sizing: border-box; }
+*{ box-sizing: border-box; }
 
 html,
 body {
@@ -207,7 +207,7 @@ a-scene {
   max-height: 55dvh;
   align-items: center;
   justify-content: center;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -60%);
   overflow: hidden;
   pointer-events: none;
 }
