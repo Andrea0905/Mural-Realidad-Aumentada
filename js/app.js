@@ -20,7 +20,7 @@ let people = {
   denisse: {
     id: "denisse",
     name: "Dra. Denisse Barrientos Argüelles",
-    quote: "Aquí irá una frase breve de Denisse.",
+    quote: "Aquí irá una breve frase de Denisse.",
     image: "./assets/images/denisse.png",
     audio: "./assets/audio/denisse.mp3",
     learnMoreUrl: "./historia.html?id=denisse"
@@ -28,41 +28,41 @@ let people = {
   esther: {
     id: "esther",
     name: "Esther",
-    quote: "Aquí irá una breve frase de Esther.",
+    quote: "Aquí irá una breve frasede Esther.",
     image: "./assets/images/esther-06.png",
-    audio: "",
+    audio: "./assets/audio/esther.mp3",
     learnMoreUrl: "./historia.html?id=esther"
   },
   rubi: {
     id: "rubi",
     name: "Rubí",
-    quote: "Aquí irá una breve frase de Rubí.",
+    quote: "Aquí irá una breve frasede Rubí.",
     image: "./assets/images/rubí.png",
-    audio: "",
+    audio: "./assets/audio/rubi.mp3",
     learnMoreUrl: "./historia.html?id=rubi"
   },
   maria: {
     id: "maria",
     name: "María",
-    quote: "Aquí irá una breve frase de María.",
+    quote: "Aquí irá una breve frasede María.",
     image: "./assets/images/maria.png",
-    audio: "",
+    audio: "./assets/audio/maria.mp3",
     learnMoreUrl: "./historia.html?id=maria"
   },
   patricia: {
     id: "patricia",
     name: "Patricia",
-    quote: "Aquí irá una breve frase de Patricia.",
+    quote: "Aquí irá una breve frasede Patricia.",
     image: "./assets/images/patricia.png",
-    audio: "",
+    audio: "./assets/audio/patricia.mp3",
     learnMoreUrl: "./historia.html?id=patricia"
   },
   monica: {
     id: "monica",
     name: "Mónica",
-    quote: "Aquí irá una breve frase de Monica.",
+    quote: "Aquí irá una breve frasede Mónica.",
     image: "./assets/images/monica.png",
-    audio: "",
+    audio: "./assets/audio/monica.mp3",
     learnMoreUrl: "./historia.html?id=monica"
   }
 };
