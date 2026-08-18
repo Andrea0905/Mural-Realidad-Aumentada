@@ -203,11 +203,11 @@ a-scene {
   top: 50%;
   left: 50%;
   display: flex;
-  width: min(85vw, 370px);
+  width: min(87vw, 380px);
   max-height: 65vh;
   align-items: center;
   justify-content: center;
-  transform: translate(-50%, -70%);
+  transform: translate(-50%, 65%);
   overflow: hidden;
   pointer-events: none;
 }
